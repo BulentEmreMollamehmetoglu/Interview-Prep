@@ -138,6 +138,9 @@ print(arr)
 #print(arr[:-2]) # get until this element based on the current index which is given
 #print(arr[4:-1])
 
+from ast import List
+
+
 arr = [1, 2, 3, 4, 5, 6]
 d = 2
 return_arr = [0] * len(arr)
@@ -203,23 +206,87 @@ class Solution:
 
         if len(s) != len(t):
             return False
-        for i in s:
-            if i not in hash_map_s:
-                hash_map_s[i] = 1
-            else:
-                hash_map_s[i] = hash_map_s.get(i) + 1
+        for i in range(len(s)):
+            hash_map_s[s[i]] = 1 + hash_map_s.get(s[i],0)
+            hash_map_t[t[i]] = 1 + hash_map_t.get(t[i],0)
+        
+        for c in hash_map_s:
+            print(c)
+            if hash_map_s[c] != hash_map_t.get(c,0):
+                return False
+        return True
+        #return True if hash_map_s == hash_map_t else False
 
-        for j in t:
-            if j not in hash_map_t:
-                hash_map_t[j] = 1
-            else:
-                hash_map_t[j] = hash_map_t.get(j) + 1
+    def isAnagramSorted(self, s: str, t: str) -> bool:
+        return True if sorted(s) == sorted(t) else False
+    
+    def bubble_sort(self, arr : list[int]) -> list[int]: #numbers = [64, 34, 25, 12, 22, 90, 11]
+        for i in range(len(arr)):
+            for j in range(0,len(arr)-1-i):
+                print(f"iterations {j}")
+                if arr[j] > arr[j+1]:
+                    arr[j], arr[j+1] = arr[j+1], arr[j]
+        return arr
+    
+    def sortString(self, a: str) -> str:
+        ascii_values = [ord(char) for char in a]
+        ascii_values_sorted = self.bubble_sort(ascii_values)
+        return "".join([chr(ascii_val) for ascii_val in ascii_values_sorted])
+    
+    def isAnagramAlternative(self, s: str, t: str) -> bool:
+        return True if self.sortString(s) == self.sortString(t) else False
 
-        return True if hash_map_s == hash_map_t else False
+
+    def test_bubble_sort(self,a : list[int]) -> str: # a = [-5,3,2,1,-3,-3,7,2,2]
+        flag = True
+        while flag:
+            flag = False
+            for j in range(1,len(a)):
+                if a[j-1] > a[j]:
+                    flag = True
+                    a[j-1],a[j] = a[j], a[j-1]
+                    
+        return a
+    
+
+    def sort_for_two_sum(self, a : list[int]) -> list[int]:
+        flag = True
+        while flag:
+            flag = False
+            for i in range(len(a)):
+                if a[i-1] > a[i]:
+                    flag = True
+                    a[i-1],a[i] = a[i], a[i-1]
+        return a
+    
+    def twoSum(self, nums: list[int], target: int) -> list[int]:
+        sorted_nums = self.sort_for_two_sum(nums)
+        left,right = 0, len(sorted_nums)-1
+        return_list = []
+        for i in range(len(sorted_nums)):
+            if arr[left] + arr[right] == target:
+                return_list.append(left,right)
+            if arr[left] + arr[right] > target:
+                left += 1
+            else: right -= 1
+
+        return return_list
+
+    def twoSumAgain(self, nums: List[int], target: int) -> List[int]: # nums = [2,7,11,15] target=9
+        hash_map = {}
+        for ix,val in enumerate(nums):
+            if target - nums[i] not in hash_map:
+                hash_map[nums[ix]] = ix
+            else:
+                return [hash_map[target - nums[ix]],ix]
+            
 def main():
 
     solution_Ex = Solution()
     #print(solution_Ex.isSubset(a,b))
-    print(solution_Ex.isAnagram(s = "jar", t = "jam"))
-
+    #print(solution_Ex.isAnagram(s = "jar", t = "jam"))
+    #print(solution_Ex.isAnagramSorted(s = "jar", t = "jam"))
+    #print(solution_Ex.isAnagramAlternative(s="abcdefasd",t="abcdefasdasd"))
+    #print(solution_Ex.test_bubble_sort(a = [-5,3,2,1,-3,-3,7,2,2]))
+    print(solution_Ex.twoSumAgain(nums=[3,4,5,6],target=7))
 main()
