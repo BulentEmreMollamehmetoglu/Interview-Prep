@@ -279,7 +279,49 @@ class Solution:
                 hash_map[nums[ix]] = ix
             else:
                 return [hash_map[target - nums[ix]],ix]
-            
+
+    def bubble_sort_group_anagrams(self,a :list[int]) -> list[int]: # bac
+        flag = True
+        while flag:
+            flag = False
+            for i in range(1,len(a)):
+                if a[i] < a[i-1]:
+                    flag = True
+                    a[i-1] , a[i] = a[i], a[i-1]
+        return a
+    
+    def sortForGroupAnagrams(self,strs) -> str:
+        ascii_values = [ord(ascii) for ascii in strs]
+        sorted_ascii = self.bubble_sort_group_anagrams(ascii_values)
+        return "".join([chr(one_ascii) for one_ascii in sorted_ascii])
+    
+    def groupAnagrams(self, strs: List[str]) -> List[List[str]]:
+        # strs = ["act","pots","tops","cat","stop","hat"]
+        hash_map = {} # keys,values -> sorted(strs[i]) : [strs[i]]
+        for i in range(len(strs)):
+            if self.sortForGroupAnagrams(strs[i]) in hash_map:
+                hash_map.get(self.sortForGroupAnagrams(strs[i])).append(strs[i])
+            else: hash_map[self.sortForGroupAnagrams(strs[i])] = [strs[i]]
+        return list(hash_map.values())
+    
+    def groupAnagrams(self, strs: List[str]) -> List[List[str]]:
+        # strs = ["act","pots","tops","cat","stop","hat"]
+        hash_map = {} # keys,values -> sorted(strs[i]) : [strs[i]]
+        for i in range(len(strs)):
+            if "".join(sorted(strs[i])) in hash_map:
+                hash_map.get("".join(sorted(strs[i]))).append(strs[i])
+            else: hash_map["".join(sorted(strs[i]))] = [strs[i]]
+        return list(hash_map.values())
+    
+    def groupAnagramsAlternative(self, strs: List[str]) -> List[List[str]]:
+        # strs = ["act","pots","tops","cat","stop","hat"]
+        hash_map = {}
+        hash_map_ext = {}
+        for i in range(len(strs)):
+            for j in range(len(strs[i])):
+                hash_map_ext[strs[i][j]] = 1 + hash_map_ext.get(strs[i][j],0)
+                print(hash_map_ext)
+        #print(hash_map_ext)
 def main():
 
     solution_Ex = Solution()
@@ -288,5 +330,7 @@ def main():
     #print(solution_Ex.isAnagramSorted(s = "jar", t = "jam"))
     #print(solution_Ex.isAnagramAlternative(s="abcdefasd",t="abcdefasdasd"))
     #print(solution_Ex.test_bubble_sort(a = [-5,3,2,1,-3,-3,7,2,2]))
-    print(solution_Ex.twoSumAgain(nums=[3,4,5,6],target=7))
+    #print(solution_Ex.twoSumAgain(nums=[3,4,5,6],target=7))
+    #print(solution_Ex.groupAnagrams(strs = ["act","pots","tops","cat","stop","hat"]))
+    print(solution_Ex.groupAnagramsAlternative(strs = ["act","pots","tops","cat","stop","hat"]))
 main()
