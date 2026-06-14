@@ -308,20 +308,28 @@ class Solution:
         # strs = ["act","pots","tops","cat","stop","hat"]
         hash_map = {} # keys,values -> sorted(strs[i]) : [strs[i]]
         for i in range(len(strs)):
-            if "".join(sorted(strs[i])) in hash_map:
+            if "".join(sorted(strs[i])) in hash_map: 
                 hash_map.get("".join(sorted(strs[i]))).append(strs[i])
             else: hash_map["".join(sorted(strs[i]))] = [strs[i]]
         return list(hash_map.values())
-    
+        # sorted O(m * nlogn) m len of str and n chars inside of the strs[i]
+        # O(k) space complexity 
     def groupAnagramsAlternative(self, strs: List[str]) -> List[List[str]]:
         # strs = ["act","pots","tops","cat","stop","hat"]
         hash_map = {}
-        hash_map_ext = {}
+        count = [0] * 26
         for i in range(len(strs)):
             for j in range(len(strs[i])):
-                hash_map_ext[strs[i][j]] = 1 + hash_map_ext.get(strs[i][j],0)
-                print(hash_map_ext)
-        #print(hash_map_ext)
+                count[ord(strs[i][j]) - ord('a')] += 1
+            tuple_count = tuple(count)
+            if tuple_count not in hash_map:
+                hash_map[tuple_count] = [strs[i]]
+            else:
+                hash_map.get(tuple_count).append(strs[i])
+            count = [0] * 26
+        return list(hash_map.values())
+        # Time : O(n * k)
+        # Space : O(n * k) -> (n) n: size of the hash_map O(26 * n) -> O(n)
 def main():
 
     solution_Ex = Solution()
