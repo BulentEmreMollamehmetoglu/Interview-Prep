@@ -330,6 +330,53 @@ class Solution:
         return list(hash_map.values())
         # Time : O(n * k)
         # Space : O(n * k) -> (n) n: size of the hash_map O(26 * n) -> O(n)
+
+    def topKFrequent(self, nums: list[int], k: int) -> list[int]:
+        '''
+        I need to find the variables that are most occurent.
+        I need to check the elements and how many times they occur in the particular list
+        I can make a list about themselves and how many times they occur.
+        That list could be a hashmap because it stores the keys which are going to be in that case 
+        the values itself and the values are going to be how many times they occur. 
+        But the problem is how can i find the bigger value in the hashmap
+        Maybe I can use a dict comprehension.
+        I just need to sort the hash_map. How can i sort the hash_map
+
+        Time and space complexities are Time: O(n) Space : O(n)
+
+        Can I use that K value as a delimiter. And return the list as a list[-2:]
+
+        After solution:
+
+        Let's assume n = 6 which is len of the arr
+        m = len of hash_map because hash_map only contains unique elements
+        First for loop
+        Time : O(n)
+        Space : O(m)
+
+        Sorted:
+
+        Sort only goes for hash_map so it needs to be
+        Time: O(m logm)
+        Space: O(m) sorting creates a list
+
+        Return last k:
+        Time: O(m + k)
+        Space : O(m)
+
+        Total:
+        Time: O(n + m logm)
+        Space : O(m)
+        '''
+        hash_map = {}
+        for i in nums:
+            hash_map[i] = 1 + hash_map.get(i,0)
+
+        sorted_hash_map = {k : v for k,v in sorted(hash_map.items(),key= lambda item: item[1])}
+        return list(sorted_hash_map.keys())[-k:]
+
+        # Solve the same problem with heap and 
+        # neetcode solution
 def main():
 
     solution_Ex = Solution()
@@ -340,5 +387,7 @@ def main():
     #print(solution_Ex.test_bubble_sort(a = [-5,3,2,1,-3,-3,7,2,2]))
     #print(solution_Ex.twoSumAgain(nums=[3,4,5,6],target=7))
     #print(solution_Ex.groupAnagrams(strs = ["act","pots","tops","cat","stop","hat"]))
-    print(solution_Ex.groupAnagramsAlternative(strs = ["act","pots","tops","cat","stop","hat"]))
+    #print(solution_Ex.groupAnagramsAlternative(strs = ["act","pots","tops","cat","stop","hat"]))
+    print(solution_Ex.insertion_sort(nums = [6,1,7,4,2,9,8,5,3]))
+    #print(solution_Ex.topKFrequent(nums = [1,2,2,3,3,3], k = 2))
 main()
