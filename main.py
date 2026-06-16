@@ -139,6 +139,7 @@ print(arr)
 #print(arr[4:-1])
 
 from ast import List
+from urllib import response
 
 
 arr = [1, 2, 3, 4, 5, 6]
@@ -377,6 +378,34 @@ class Solution:
 
         # Solve the same problem with heap and 
         # neetcode solution
+    
+    def topKFrequentAlternative(self, nums: list[int], k: int) -> list[int]:
+        # [1,2,2,3,3,3]
+        '''
+        values 1 2 3 4 5 6
+        keys   []
+        '''
+        count = {}
+        freq = [[] for i in range(len(nums) + 1)]
+
+        for n in nums:
+            count[n] = 1 + count.get(n,0)
+        
+        for n,v in count.items():
+            freq[v].append(n)
+
+        res = []
+        examp = []
+        print(freq)
+        examp.append(freq[-1][0])
+        print(examp)
+       
+        for i in range(len(freq) -1 ,0 , -1):
+            for n in freq[i]:
+                res.append(n)
+                if len(res) == k:
+                    return res
+        return res
 def main():
 
     solution_Ex = Solution()
@@ -388,6 +417,7 @@ def main():
     #print(solution_Ex.twoSumAgain(nums=[3,4,5,6],target=7))
     #print(solution_Ex.groupAnagrams(strs = ["act","pots","tops","cat","stop","hat"]))
     #print(solution_Ex.groupAnagramsAlternative(strs = ["act","pots","tops","cat","stop","hat"]))
-    print(solution_Ex.insertion_sort(nums = [6,1,7,4,2,9,8,5,3]))
+    #print(solution_Ex.insertion_sort(nums = [6,1,7,4,2,9,8,5,3]))
     #print(solution_Ex.topKFrequent(nums = [1,2,2,3,3,3], k = 2))
+    print(solution_Ex.topKFrequentAlternative(nums = [1,2,2,3,3,3], k = 2))
 main()
