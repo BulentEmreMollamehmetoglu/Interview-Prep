@@ -139,7 +139,6 @@ print(arr)
 #print(arr[4:-1])
 
 from ast import List
-from urllib import response
 
 
 arr = [1, 2, 3, 4, 5, 6]
@@ -406,6 +405,49 @@ class Solution:
                 if len(res) == k:
                     return res
         return res
+
+    def isPalindrome(self, string: str) -> bool:
+        '''
+        a palindrome
+        String that is equals forwards and backwards.
+        We need to use alphanumeric characters. (A-a)(Z-z)(0-9)
+        no melon!
+        '''
+
+        # to check  isalnum()
+
+        # remove invalid characters from str
+        
+        # strs[::-1].strip() check reverse = forward
+        
+        string = ("".join([char for char in string if char.isalnum()])).strip()
+        return True if string.lower()==string[::-1].lower() else False
+    
+        # Time O(n) Space O(1)
+    
+    def isPalindromeTwoPointers(self, s:str) -> bool:
+        # s = ".,"
+        left,right = 0, len(s)-1
+        while left < right:
+            while left < right and not self.isAlnumNotBuiltIn(s[left]):
+                left += 1
+            while right > left and not self.isAlnumNotBuiltIn(s[right]):
+                right -= 1
+
+            if s[left].lower() != s[right].lower() : return False 
+
+            l, r = l+1 , r-1
+        return True
+
+
+    def isAlnumNotBuiltIn(self, char : chr) -> bool:
+        #Check digits
+        return (ord('0') <= ord(char) <= ord('9') or 
+                ord('a') <= ord(char) <= ord('z') or 
+                ord('A') <= ord(char) <= ord('Z'))
+
+    def isPalindromeTwoPointerAlternative(self, s:str) -> bool:
+        pass
 def main():
 
     solution_Ex = Solution()
@@ -419,5 +461,7 @@ def main():
     #print(solution_Ex.groupAnagramsAlternative(strs = ["act","pots","tops","cat","stop","hat"]))
     #print(solution_Ex.insertion_sort(nums = [6,1,7,4,2,9,8,5,3]))
     #print(solution_Ex.topKFrequent(nums = [1,2,2,3,3,3], k = 2))
-    print(solution_Ex.topKFrequentAlternative(nums = [1,2,2,3,3,3], k = 2))
+    #print(solution_Ex.topKFrequentAlternative(nums = [1,2,2,3,3,3], k = 2))
+    #print(solution_Ex.isPalindrome(string="Was it a car or a cat I saw?"))
+    #print(solution_Ex.isPalindromeTwoPointers(s="hellooo"))
 main()
