@@ -139,6 +139,8 @@ print(arr)
 #print(arr[4:-1])
 
 from ast import List
+from inspect import stack
+from typing import Deque
 
 
 arr = [1, 2, 3, 4, 5, 6]
@@ -185,6 +187,7 @@ hash_set.add(2)
 
 print(hash_set)
 '''
+from collections import deque
 class Solution:
         
     def isSubset(self, a : list[int],b : list[int]) -> bool:
@@ -423,7 +426,7 @@ class Solution:
         string = ("".join([char for char in string if char.isalnum()])).strip()
         return True if string.lower()==string[::-1].lower() else False
     
-        # Time O(n) Space O(1)
+        # Time O(n) Space O(n)
     
     def isPalindromeTwoPointers(self, s:str) -> bool:
         # s = ".,"
@@ -438,16 +441,62 @@ class Solution:
 
             l, r = l+1 , r-1
         return True
-
+        # Time: O(n) Space: O(1)
 
     def isAlnumNotBuiltIn(self, char : chr) -> bool:
         #Check digits
         return (ord('0') <= ord(char) <= ord('9') or 
                 ord('a') <= ord(char) <= ord('z') or 
                 ord('A') <= ord(char) <= ord('Z'))
+    '''
+    input : num: list[int] -> non-decreasing order
+    output : [index1,index2] , ix1 + ix2 = target , ix1 < ix2 , ix1 != ix2, 
+    no same elements for ix1 and ix2
 
-    def isPalindromeTwoPointerAlternative(self, s:str) -> bool:
-        pass
+    one valid solution exists
+    solution must use O(1) space
+    ''' 
+
+    def twoIntegerSum(self,nums : list[int] , target : int) -> list[int]:
+        '''
+        left, right
+        left < right , left != right
+        I can't use hashmap.
+        nums = [1,2,3,4] ->  5
+        '''
+        for i in range(len(nums)):
+            for j in range(i+1,len(nums)):
+                if nums[i] + nums[j] == target:
+                    return [i,j]
+    
+    def twoIntegerSumAlternative(self, nums: list[int] , target: int) -> list[int]:
+        l,r = 0, len(nums) - 1
+        while l < r :
+            curSum = nums[l] + nums[r]
+            if curSum > target:
+                r -= 1
+            elif curSum < target:
+                l += 1
+            else:
+                return [l+1,r+1]
+            
+    def stackDS(self):
+        stack = []
+        stack.append(5)
+        stack.append(4)
+        stack.append(3)
+        print(stack)
+        print(stack[-1])
+        print(stack.pop())
+        print(stack.peek())
+    
+    def queues(self):
+        q = Deque()
+        print(q)
+        q.append(5)
+        q.append(6)
+        print(q)
+        print(q.popleft())
 def main():
 
     solution_Ex = Solution()
@@ -464,4 +513,7 @@ def main():
     #print(solution_Ex.topKFrequentAlternative(nums = [1,2,2,3,3,3], k = 2))
     #print(solution_Ex.isPalindrome(string="Was it a car or a cat I saw?"))
     #print(solution_Ex.isPalindromeTwoPointers(s="hellooo"))
+    #print(solution_Ex.twoIntegerSum(nums=[1,2,3,4], target=5))
+    #print(solution_Ex.stackDS())
+    print(solution_Ex.queues())
 main()
