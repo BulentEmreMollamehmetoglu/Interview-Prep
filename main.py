@@ -497,6 +497,38 @@ class Solution:
         q.append(6)
         print(q)
         print(q.popleft())
+
+
+    '''
+    '(',')','{','}','[',']'
+    
+    input string is valid: 
+    1. every open bracket should be closed with the same type of close bracket.
+    2. open brackets should be closed in the correct order.
+    3. every close bracket should have a corresponding open bracket of the same type.
+
+    return true if string is valid , otherwise false
+    input -> true -> s = "()" , s = "()[]" , s = "{[()]}"
+    false -> s = "[(])"
+    '''
+    def isValidString(self, s : str) -> bool:
+        hash_map = {"(" : ")" , "[" : "]" , "{" : "}"}
+        stack = []
+        opening_bracket = ["(" , "[" , "{"]
+        closing_bracket = [")", "]","}"]
+        # "({[]})"
+        for i in s:
+            if i in opening_bracket:
+                stack.append(i)
+            elif stack and i in closing_bracket:
+                peek = stack.pop()
+                if hash_map[peek] == i:
+                    continue
+                else:
+                    return False
+            else:
+                return False
+        return True if not stack else False
 def main():
 
     solution_Ex = Solution()
@@ -515,5 +547,6 @@ def main():
     #print(solution_Ex.isPalindromeTwoPointers(s="hellooo"))
     #print(solution_Ex.twoIntegerSum(nums=[1,2,3,4], target=5))
     #print(solution_Ex.stackDS())
-    print(solution_Ex.queues())
+    #print(solution_Ex.queues())
+    print(solution_Ex.isValidString(s="{[[]]}"))
 main()
