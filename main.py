@@ -512,41 +512,88 @@ class Solution:
     false -> s = "[(])"
     '''
     def isValidString(self, s : str) -> bool:
-        hash_map = {"(" : ")" , "[" : "]" , "{" : "}"}
+        hash_map = {")" : "(" , "]" : "[" , "}" : "{"}
         stack = []
-        opening_bracket = ["(" , "[" , "{"]
-        closing_bracket = [")", "]","}"]
-        # "({[]})"
         for i in s:
-            if i in opening_bracket:
-                stack.append(i)
-            elif stack and i in closing_bracket:
-                peek = stack.pop()
-                if hash_map[peek] == i:
-                    continue
+            if i in hash_map:
+                if stack and hash_map[i] == stack[-1]:
+                    stack.pop()
                 else:
                     return False
             else:
-                return False
-        return True if not stack else False
+                stack.append(i)
+        return False if stack else True 
+    
+    def checkStackIsEmpty(self) -> bool:
+        stack = [1,2,3,4]
+        return True if stack else False
+
+    '''
+    design a stack class
+    push
+    pop
+    top 
+    getMin
+
+    MinStack -> initializes the stack object
+    push method takes an element "val" onto the stack
+    -> is val always a int or string?
+    pop method removes the element on the top of the stack
+    -> is this stack always going to has some kind of elements
+    top method gets the top element of the stack
+    -> is this stack always going to has some kind of elements
+    getMin -> retrieves the minimum element in the stack
+
+    Each function should run in O(1) time. 
+
+    pop, top and getMin will always be called on non-empty stacks.
+    '''
+
+class MinStack:
+    # [1,2,0]
+    def __init__(self):
+        self.stack = [] # initializes the stack object
+        self.min_stack = []
+    def push(self, val : int) -> None:
+        self.stack.append(val)
+        if not self.min_stack or val <= self.min_stack[-1]:
+            self.min_stack.append(val)
+
+
+
+    def pop(self) -> None:
+        val = self.stack.pop()
+        if self.min_stack and val < self.min_stack[-1]:
+            self.min_stack.pop()
+
+    def top(self) -> int:
+        return self.stack[-1]
+
+    def getMin(self) -> int:
+        if not self.min_stack:
+            return self.stack[0]
+        else:
+            return self.min_stack[-1]
+
 def main():
 
     solution_Ex = Solution()
-    #print(solution_Ex.isSubset(a,b))
-    #print(solution_Ex.isAnagram(s = "jar", t = "jam"))
-    #print(solution_Ex.isAnagramSorted(s = "jar", t = "jam"))
-    #print(solution_Ex.isAnagramAlternative(s="abcdefasd",t="abcdefasdasd"))
-    #print(solution_Ex.test_bubble_sort(a = [-5,3,2,1,-3,-3,7,2,2]))
-    #print(solution_Ex.twoSumAgain(nums=[3,4,5,6],target=7))
-    #print(solution_Ex.groupAnagrams(strs = ["act","pots","tops","cat","stop","hat"]))
-    #print(solution_Ex.groupAnagramsAlternative(strs = ["act","pots","tops","cat","stop","hat"]))
-    #print(solution_Ex.insertion_sort(nums = [6,1,7,4,2,9,8,5,3]))
-    #print(solution_Ex.topKFrequent(nums = [1,2,2,3,3,3], k = 2))
-    #print(solution_Ex.topKFrequentAlternative(nums = [1,2,2,3,3,3], k = 2))
-    #print(solution_Ex.isPalindrome(string="Was it a car or a cat I saw?"))
-    #print(solution_Ex.isPalindromeTwoPointers(s="hellooo"))
-    #print(solution_Ex.twoIntegerSum(nums=[1,2,3,4], target=5))
-    #print(solution_Ex.stackDS())
-    #print(solution_Ex.queues())
-    print(solution_Ex.isValidString(s="{[[]]}"))
+
+    minStack = MinStack()
+    print(f"stack --> {minStack.stack}")
+    minStack.push(-2);
+    minStack.push(-2);
+    minStack.push(-3);
+    minStack.push(-3);
+    print(f"stack --> {minStack.stack}")
+    print(f" min stack --> {minStack.min_stack}")
+    print(minStack.getMin()) 
+    minStack.pop();
+    print(f"stack --> {minStack.stack}")
+    print(f" min stack --> {minStack.min_stack}")
+    minStack.top();    
+    print(f"stack --> {minStack.stack}")
+    minStack.getMin(); 
+    print(f"stack --> {minStack.stack}")
+
 main()
