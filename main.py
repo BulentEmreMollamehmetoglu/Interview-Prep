@@ -549,6 +549,24 @@ class Solution:
     pop, top and getMin will always be called on non-empty stacks.
     '''
 
+
+    def evalRPN(self, tokens : list[str]) -> int:
+        stack = []
+        operations = ["+", "-","*","/"]
+        for i in tokens:
+            if i not in operations:
+                stack.append(i) 
+            else:
+                val1,val2 = int(stack.pop()) , int(stack.pop())
+                if i == "+":
+                    stack.append(val2 + val1)
+                elif i == "-":
+                    stack.append(val2 - val1)
+                elif i == "*":
+                    stack.append(val2 * val1)
+                elif i == "/":
+                    stack.append(val2 / val1)
+        return int(stack.pop())
 class MinStack:
     # [1,2,0]
     def __init__(self):
@@ -578,7 +596,7 @@ class MinStack:
 def main():
 
     solution_Ex = Solution()
-
+    '''
     minStack = MinStack()
     print(f"stack --> {minStack.stack}")
     minStack.push(-2);
@@ -595,5 +613,6 @@ def main():
     print(f"stack --> {minStack.stack}")
     minStack.getMin(); 
     print(f"stack --> {minStack.stack}")
-
+    '''
+    print(solution_Ex.evalRPN(tokens=["1","2","+","3","*","4","-"]))
 main()
