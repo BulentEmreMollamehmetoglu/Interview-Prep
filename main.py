@@ -567,6 +567,35 @@ class Solution:
                 elif i == "/":
                     stack.append(val2 / val1)
         return int(stack.pop())
+    
+        '''
+    arr[int] -> temperatures
+    temperatures[i] -> stands for daily temperature on the day i.
+
+    return -> result[] -> result[i] -> return the number of days if a future day's temperature
+    is warmer than yesterday.
+
+    temperatures = [30,38,30,36,35,40,28]
+    
+    '''
+
+    def dailyTemperatures(self, temperatures : list[int]) -> list[int]:
+        #temperatures = [30,38,30,36,35,40,28]
+        result = []
+        count = 0
+        for i in range(len(temperatures) - 1):
+            for j in range(i+1,len(temperatures)):
+                if temperatures[i] < temperatures[j]:
+                    count = j - i
+                    break
+            result.append(count)
+            count = 0
+        result.append(0)
+        return result
+    
+    def dailyTemperatureStack(self, temperatures : list[int]) -> list[int]:
+        stack = []
+        
 class MinStack:
     # [1,2,0]
     def __init__(self):
@@ -592,7 +621,7 @@ class MinStack:
             return self.stack[0]
         else:
             return self.min_stack[-1]
-
+    
 def main():
 
     solution_Ex = Solution()
@@ -614,5 +643,6 @@ def main():
     minStack.getMin(); 
     print(f"stack --> {minStack.stack}")
     '''
-    print(solution_Ex.evalRPN(tokens=["1","2","+","3","*","4","-"]))
+    #print(solution_Ex.evalRPN(tokens=["1","2","+","3","*","4","-"]))
+    print(solution_Ex.dailyTemperatures(temperatures = [30,38,30,36,35,40,28]))
 main()
