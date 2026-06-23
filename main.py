@@ -594,8 +594,47 @@ class Solution:
         return result
     
     def dailyTemperatureStack(self, temperatures : list[int]) -> list[int]:
+        #temperatures = [30,38,30,36,35,40,28]
         stack = []
-        
+        result = [0] * len(temperatures)
+        for i in range(len(temperatures)):
+            while stack and temperatures[i] > temperatures[stack[-1]]:
+                old_index = stack.pop()
+                result[old_index] = i - old_index
+            stack.append(i)
+        return result
+    '''
+    [-,-,-,-,-,-,-,-] the len of [] is n
+
+    input -> position[int] , speed[int] both of length n
+
+    position[i] -> position of the ith car.
+    speed[i] -> speed of the ith car.
+    target -> int
+
+    stack = []
+    num_of_car = len(position)
+    return_val = 0
+    j = 0
+    flag = True
+    target_position = [] * len(position)
+    while flag:
+        est_target = position[j] + ((j+1)  * speed[j]) # 4 6
+        target_position[j] = est_target
+        if not stack and est_target not in stack:
+            stack.append(est_target)
+
+        if stack and stack[-1] == est_target:
+            
+            
+        while stack and stack[-1] == est_target and est_target == target:
+            popped_val = stack.pop()
+            return_val += 1
+            num_of_car -= 1
+        j += 1
+        if num_of_car == 0:
+            flag = False
+    '''
 class MinStack:
     # [1,2,0]
     def __init__(self):
@@ -644,5 +683,6 @@ def main():
     print(f"stack --> {minStack.stack}")
     '''
     #print(solution_Ex.evalRPN(tokens=["1","2","+","3","*","4","-"]))
-    print(solution_Ex.dailyTemperatures(temperatures = [30,38,30,36,35,40,28]))
+    #print(solution_Ex.dailyTemperatures(temperatures = [30,38,30,36,35,40,28]))
+    print(solution_Ex.dailyTemperatureStack(temperatures = [30,38,30,36,35,40,28]))
 main()
