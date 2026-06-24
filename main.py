@@ -1,3 +1,4 @@
+import math
 '''
 arr = [1, 2, 2, 3, 4, 4, 4, 5, 5]
 return_dict = {}
@@ -635,6 +636,54 @@ class Solution:
         if num_of_car == 0:
             flag = False
     '''
+
+    '''
+    Second thoughts
+    
+    x = v.t
+    arrival_time = (target - position) / speed = t
+    0 -> 3
+    1 -> 3
+
+    
+    3
+    5 -> rounded up
+    10
+    3
+    stack = []
+    max_time = 0
+    fleet = 0
+    for i in range(len(position)):
+        arrival_time = (target - position[i]) / speed[i]
+        if not stack:
+            stack.append(arrival_time)
+            max_time = arrival_time
+            fleet += 1
+        if stack and max_time < arrival_time:
+            stack.pop()
+            stack.append(arrival_time)
+            max_time = arrival_time
+            fleet += 1
+        
+    '''
+
+    def carFleet(self,target : int, position : list[int] , speed: list[int]) -> int:
+        # (target = 10, position=[6,8], speed=[3,2]))
+        fleet = 0
+        slowest_time = 0
+        hash_map = {}
+        for i,j in zip(position,speed):
+            hash_map[(i,j)] = (target - i) / j
+        hash_map = sorted(hash_map.keys(), key= lambda item : item[0],reverse=True)
+        for i,j in hash_map:
+            time = (target - i) / j
+            if slowest_time < time : 
+                fleet += 1
+                slowest_time =  time
+
+        return fleet
+
+
 class MinStack:
     # [1,2,0]
     def __init__(self):
@@ -684,5 +733,6 @@ def main():
     '''
     #print(solution_Ex.evalRPN(tokens=["1","2","+","3","*","4","-"]))
     #print(solution_Ex.dailyTemperatures(temperatures = [30,38,30,36,35,40,28]))
-    print(solution_Ex.dailyTemperatureStack(temperatures = [30,38,30,36,35,40,28]))
+    #print(solution_Ex.dailyTemperatureStack(temperatures = [30,38,30,36,35,40,28]))
+    print(solution_Ex.carFleet(target = 10, position=[6,8], speed=[3,2]))
 main()
