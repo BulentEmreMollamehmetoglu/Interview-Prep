@@ -683,7 +683,20 @@ class Solution:
 
         return fleet
 
-
+    def carFleetAlternative(self,target : int , position : list[int], speed : list[int]) -> int:
+        #target = 10, position=[4,1,0,7], speed=[2,2,1,1]
+        #target=10 position=[1,4] speed=[3,2]
+        stack = []
+        cars = [(positions,speeds) for positions,speeds in zip(position,speed)]
+        sorted_cars = sorted(cars, key = lambda positions : positions[0],reverse=True)
+        print(sorted_cars)
+        for i,j in sorted_cars:
+            time = (target - i) / j
+            print(time)
+            stack.append(time)
+            if len(stack) >= 2 and stack[-1] <= stack[-2]:
+                stack.pop()
+        return len(stack)
 class MinStack:
     # [1,2,0]
     def __init__(self):
@@ -734,5 +747,6 @@ def main():
     #print(solution_Ex.evalRPN(tokens=["1","2","+","3","*","4","-"]))
     #print(solution_Ex.dailyTemperatures(temperatures = [30,38,30,36,35,40,28]))
     #print(solution_Ex.dailyTemperatureStack(temperatures = [30,38,30,36,35,40,28]))
-    print(solution_Ex.carFleet(target = 10, position=[6,8], speed=[3,2]))
+    #print(solution_Ex.carFleet(target = 10, position=[6,8], speed=[3,2]))
+    print(solution_Ex.carFleetAlternative(target = 10, position=[1,4], speed=[3,2]))
 main()
