@@ -707,18 +707,28 @@ class Solution:
         # sort -> [-4,-1,-1,0,1,2]
         sorted_nums = sorted(nums)
         return_list = []
-        l,r = 1, len(sorted_nums) - 1
         for i in range(len(sorted_nums)):
-            l,r = i+1, len(sorted_nums) - 1
-            while l < r:
-                sum = sorted_nums[i] + sorted_nums[l] + sorted_nums[r]
-                if sum < 0:
+            if i > 0 and sorted_nums[i] == sorted_nums[i-1]:
+                continue
+            l,r = i + 1, len(sorted_nums) - 1
+            while l < r :
+                current_sum = sorted_nums[i] + sorted_nums[l] + sorted_nums[r]
+
+                if current_sum < 0:
                     l += 1
-                elif sum > 0 :
+                elif current_sum > 0 :
                     r -= 1
                 else:
                     return_list.append([sorted_nums[i],sorted_nums[l],sorted_nums[r]])
-                    break
+                    l += 1
+                    r -= 1
+
+                    while l < r and sorted_nums[l] == sorted_nums[l-1]:
+                        l += 1
+                    
+                    while l < r and sorted_nums[r] == sorted_nums[r+1]:
+                        r -= 1
+
         return return_list
         
 
@@ -783,5 +793,5 @@ def main():
     #print(solution_Ex.dailyTemperatureStack(temperatures = [30,38,30,36,35,40,28]))
     #print(solution_Ex.carFleet(target = 10, position=[6,8], speed=[3,2]))
     #print(solution_Ex.carFleetAlternative(target = 10, position=[1,4], speed=[3,2]))
-    print(solution_Ex.threeSum(nums = [-1,0,1,2,-1,-4]))
+    print(solution_Ex.threeSum(nums=[-2,0,0,2,2]))
 main()
