@@ -697,6 +697,40 @@ class Solution:
             if len(stack) >= 2 and stack[-1] <= stack[-2]:
                 stack.pop()
         return len(stack)
+    '''
+    nums : list[int] -> list[list[int]]
+    no duplicate triplets
+    '''
+
+    def threeSum(self, nums : list[int]) -> list[list[int]]:
+        # [1,0,-1,2,-1,-4] -> [[1,0,-1],[-1,-1,2]]
+        # sort -> [-4,-1,-1,0,1,2]
+        sorted_nums = sorted(nums)
+        return_list = []
+        l,r = 1, len(sorted_nums) - 1
+        for i in range(len(sorted_nums)):
+            l,r = i+1, len(sorted_nums) - 1
+            while l < r:
+                sum = sorted_nums[i] + sorted_nums[l] + sorted_nums[r]
+                if sum < 0:
+                    l += 1
+                elif sum > 0 :
+                    r -= 1
+                else:
+                    return_list.append([sorted_nums[i],sorted_nums[l],sorted_nums[r]])
+                    break
+        return return_list
+        
+
+
+
+
+
+
+
+
+
+        
 class MinStack:
     # [1,2,0]
     def __init__(self):
@@ -748,5 +782,6 @@ def main():
     #print(solution_Ex.dailyTemperatures(temperatures = [30,38,30,36,35,40,28]))
     #print(solution_Ex.dailyTemperatureStack(temperatures = [30,38,30,36,35,40,28]))
     #print(solution_Ex.carFleet(target = 10, position=[6,8], speed=[3,2]))
-    print(solution_Ex.carFleetAlternative(target = 10, position=[1,4], speed=[3,2]))
+    #print(solution_Ex.carFleetAlternative(target = 10, position=[1,4], speed=[3,2]))
+    print(solution_Ex.threeSum(nums = [-1,0,1,2,-1,-4]))
 main()
