@@ -737,6 +737,32 @@ class Solution:
 
 
 
+    def threeSumAlternative(self,nums : list[int]) -> list[list[int]] :
+        # [1,0,-1,2,-1,-4] -> [[1,0,-1],[-1,-1,2]]
+        # sort -> [-4,-1,-1,0,1,2]
+        return_list = []
+        nums.sort() # creates O(1) space in the memory. 
+        for i in range(len(nums)):
+            l,r = i+1, len(nums) - 1
+            if i > 0 and nums[i] == nums[i-1]:
+                continue
+            while l < r :
+                sum = nums[l] + nums[r] + nums[i]
+                if sum < 0:
+                    l += 1
+                elif sum > 0:
+                    r -= 1
+                else:
+                    return_list.append([nums[l],nums[r],nums[i]])
+                    l += 1 
+                    while l < r and nums[l] == nums[l-1]:
+                        l += 1
+        return return_list
+
+    '''
+    Time : O(n logn)  + O(n^2) Space : O(1) 
+    '''
+
 
 
 
@@ -793,5 +819,6 @@ def main():
     #print(solution_Ex.dailyTemperatureStack(temperatures = [30,38,30,36,35,40,28]))
     #print(solution_Ex.carFleet(target = 10, position=[6,8], speed=[3,2]))
     #print(solution_Ex.carFleetAlternative(target = 10, position=[1,4], speed=[3,2]))
-    print(solution_Ex.threeSum(nums=[-2,0,0,2,2]))
+    #print(solution_Ex.threeSum(nums=[-2,0,0,2,2]))
+    print(solution_Ex.threeSumAlternative(nums=[1,0,-1,2,-1,-4]))
 main()
