@@ -764,9 +764,28 @@ class Solution:
     '''
 
 
+    '''
+    heights : list[int]
 
 
-        
+    '''
+    def maxArea(self,heights : list[int]) -> int :
+        maxArea = 0
+        l,r = 0 , len(heights) - 1
+        flag = True
+        while flag:
+            if l == r :
+                break
+            area = (r -l) * min(heights[l],heights[r])
+
+            if heights[l] < heights[r]:
+                l +=1
+            else:
+                r -= 1
+            if area > maxArea:
+                maxArea = area 
+        return maxArea
+                
 class MinStack:
     # [1,2,0]
     def __init__(self):
@@ -820,5 +839,6 @@ def main():
     #print(solution_Ex.carFleet(target = 10, position=[6,8], speed=[3,2]))
     #print(solution_Ex.carFleetAlternative(target = 10, position=[1,4], speed=[3,2]))
     #print(solution_Ex.threeSum(nums=[-2,0,0,2,2]))
-    print(solution_Ex.threeSumAlternative(nums=[1,0,-1,2,-1,-4]))
+    #print(solution_Ex.threeSumAlternative(nums=[1,0,-1,2,-1,-4]))
+    print(solution_Ex.maxArea(heights = [1,7,2,5,4,7,3,6]))
 main()
