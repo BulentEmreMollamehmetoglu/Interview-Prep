@@ -1,4 +1,5 @@
 import math
+import re
 '''
 arr = [1, 2, 2, 3, 4, 4, 4, 5, 5]
 return_dict = {}
@@ -801,6 +802,34 @@ class Solution:
 
         return maxArea
     
+    def binarySearch(self,nums: list[int],target : int) -> bool:
+        l,r = 0 , len(nums) - 1
+        while l <= r:
+            M = (l + r) // 2 # L + ((R-L) // 2) 
+            if nums[M] == target:
+                return True
+
+            elif target > nums[M] :
+                l = M + 1
+            
+            else:
+                r = M - 1
+        
+        return False
+
+
+
+    def search(self,nums : list[int],target: int) -> int:
+        l,r = 0 , len(nums) - 1
+        while l <= r :
+            M = (l + r) // 2
+            if target == nums[M]:
+                return M
+            elif target > nums[M]:
+                l = M + 1
+            else:
+                r = M - 1
+        return -1
 class MinStack:
     # [1,2,0]
     def __init__(self):
@@ -855,5 +884,6 @@ def main():
     #print(solution_Ex.carFleetAlternative(target = 10, position=[1,4], speed=[3,2]))
     #print(solution_Ex.threeSum(nums=[-2,0,0,2,2]))
     #print(solution_Ex.threeSumAlternative(nums=[1,0,-1,2,-1,-4]))
-    print(solution_Ex.maxArea(heights = [1,7,2,5,4,7,3,6]))
+    #print(solution_Ex.maxArea(heights = [1,7,2,5,4,7,3,6]))
+    print(solution_Ex.binarySearch(nums = [-3,1,0,1,4,7],target = 9))
 main()
