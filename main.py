@@ -786,6 +786,21 @@ class Solution:
                 maxArea = area 
         return maxArea
                 
+
+    def maxAreaAlternative(self, heights: list[int]) -> int:
+        # heights = [1,7,2,5,4,7,3,6]
+        l,r = 0 , len(heights) - 1
+        maxArea = 0
+        while l < r:         
+            area = (r - l) * min(heights[l],heights[r])
+            maxArea = max(area,maxArea)
+            if heights[l] < heights[r] :
+                l += 1
+            else:
+                r -= 1
+
+        return maxArea
+    
 class MinStack:
     # [1,2,0]
     def __init__(self):
