@@ -830,6 +830,42 @@ class Solution:
             else:
                 r = M - 1
         return -1
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    def binarySearch(self,nums : list[int],target : int) -> int :
+        l,r = 0 , len(nums) - 1
+        while l <= r :
+            M = (l + r) // 2 
+
+            if target == nums[M]:
+                return M
+
+            elif target > nums[M]:
+                l = M + 1
+            
+            else:
+                r = M - 1
+        return -1
+
+
+
+
+
+
+
 class MinStack:
     # [1,2,0]
     def __init__(self):
