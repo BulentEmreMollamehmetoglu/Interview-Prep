@@ -805,7 +805,7 @@ class Solution:
     def binarySearch(self,nums: list[int],target : int) -> bool:
         l,r = 0 , len(nums) - 1
         while l <= r:
-            M = (l + r) // 2 # L + ((R-L) // 2) 
+            M = (l + r) // 2 # L + ((R-L) // 2) to prevent integer overflow
             if nums[M] == target:
                 return True
 
@@ -831,20 +831,6 @@ class Solution:
                 r = M - 1
         return -1
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     def binarySearch(self,nums : list[int],target : int) -> int :
         l,r = 0 , len(nums) - 1
         while l <= r :
@@ -860,13 +846,64 @@ class Solution:
                 r = M - 1
         return -1
 
+    def searchMatrix(self, matrix : list[list[int]],target : int) -> bool:
+        '''
+            m x n 2D -> matrix : list[list[int]] , target : int 
+            [[1,2,3],[4,5,6],[7,8,9]] -> each row is increasing order
+            return bool
 
+            O (log(m*n)) 
+        '''
+        for i in range(len(matrix)): # rows
+            l,r = 0 , len(matrix[i]) - 1
+            while l <= r:
+                M = (l + r) // 2
 
+                if target == matrix[i][M] : 
+                    return True
 
+                elif target > matrix[i][M] :
+                    l = M + 1
+                
+                else : 
+                    r = M - 1
 
+        return False 
+    
 
+    def searchMatrixAlternative(self,matrix : list[list[int]],target : int) -> bool:
+        # [[1,2,3],[4,5,6],[7,8,9]]
+        ROWS, COLS = len(matrix) , len(matrix[0])
+        top , bot = 0, ROWS -1
+        while top <= bot : 
+            row = (top + bot) // 2
 
+            if target > matrix[row][-1]:
+                top = row + 1
+            elif target < matrix[row][0]:
+                bot = row -1
+            else:
+                break
+        
+        if not (top <= bot):
+            return False
+        row = (top + bot) // 2
+        l,r = 0, len(matrix[row])
+        while l <= r:
+            M = (l + r) // 2
+
+            if target == matrix[row][M]:
+                return True
+        
+            elif target > matrix[row][M]:
+                l = M + 1
+            
+            else:
+                r = M - 1
+        return False
 class MinStack:
+
+
     # [1,2,0]
     def __init__(self):
         self.stack = [] # initializes the stack object
@@ -921,5 +958,6 @@ def main():
     #print(solution_Ex.threeSum(nums=[-2,0,0,2,2]))
     #print(solution_Ex.threeSumAlternative(nums=[1,0,-1,2,-1,-4]))
     #print(solution_Ex.maxArea(heights = [1,7,2,5,4,7,3,6]))
-    print(solution_Ex.binarySearch(nums = [-3,1,0,1,4,7],target = 9))
+    #print(solution_Ex.binarySearch(nums = [-3,1,0,1,4,7],target = 9))
+    print(solution_Ex.searchMatrix(matrix = [[1,2,4,8],[10,11,12,13],[14,20,30,40]], target = 15))
 main()
