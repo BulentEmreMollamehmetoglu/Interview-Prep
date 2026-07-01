@@ -901,6 +901,45 @@ class Solution:
             else:
                 r = M - 1
         return False
+
+
+    '''
+
+    '''
+    def searchMatrixAlternativeSecondTime(self, matrix : list[list[int]],target : int) -> bool:
+        # [[1,2,3],[4,5,6],[7,8,9]]
+        #O(logm * logn) = O(logm) + O(logn)
+        ROWS = len(matrix), COLS = len(matrix[0])
+        top, bot = 0, ROWS - 1
+        while top <= bot :
+            row = (top + bot) // 2
+            if target > matrix[row][-1]:
+                top = row + 1
+            elif target < matrix[row][0]:
+                bot = row - 1
+            else:
+                break
+            
+        if not (top <= bot) :
+            return False
+        row = (top + bot) // 2
+        l,r = 0, len(matrix[row]) - 1
+        while  l <= r :
+            M = (l + r) // 2
+
+            if target > matrix[row][M]:
+                l = M + 1
+            elif target < matrix[row][M]:
+                r = M - 1
+
+            else:
+                return True
+        return False
+
+
+    
+
+
 class MinStack:
 
 
