@@ -985,18 +985,18 @@ class Solution:
     '''
     def minEatingSpeedAlternative(self, piles : list[int],h : int) -> int :
         l, r = 1, max(piles)
-        result = 0
+        result = r
         while l <= r:
             hour = 0
             K = (l + r) // 2
             for pile in piles:
                 hour += math.ceil(pile/K)
             
-            if hour > h : 
-                l = K + 1
-            elif hour <= h:
-                result = K
+            if hour <= h:
+                result = min(result,K)
                 r = K - 1
+            else:
+                l = K + 1
         return result
     
 class MinStack:
