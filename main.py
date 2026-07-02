@@ -909,7 +909,7 @@ class Solution:
     def searchMatrixAlternativeSecondTime(self, matrix : list[list[int]],target : int) -> bool:
         # [[1,2,3],[4,5,6],[7,8,9]]
         #O(logm * logn) = O(logm) + O(logn)
-        ROWS = len(matrix), COLS = len(matrix[0])
+        ROWS,COLS = len(matrix), len(matrix[0])
         top, bot = 0, ROWS - 1
         while top <= bot :
             row = (top + bot) // 2
@@ -937,9 +937,68 @@ class Solution:
         return False
 
 
+    '''
+    piles : list[int]
+    piles[i] -> number of bananas in the ith pile. [1,4,3,2]
+    
+    h : int -> number of hours I have to eat all the bananas.
+    
+    return k -> k is my bananas per hour eating rate. 
+
+    30 + 2 + 1.30 + 1
+    1 + 2 + 2 + 1
+    '''
+
+
+    def minEatingSpeed(self, piles: list[int], h : int) -> int :
+        l,r = 1, max(piles)
+        result = r
+        while l <= r :
+
+            K = (l + r) // 2
+            hours = 0
+            for pile in piles:
+                hours += math.ceil(pile / K)
+
+            if hours <= h :
+                result = K
+                r = K - 1
+            
+            elif hours > h :
+                l = K + 1
+        return result
     
 
 
+
+
+
+
+
+
+
+    '''
+    
+    
+    
+    
+    '''
+    def minEatingSpeedAlternative(self, piles : list[int],h : int) -> int :
+        l, r = 1, max(piles)
+        result = 0
+        while l <= r:
+            hour = 0
+            K = (l + r) // 2
+            for pile in piles:
+                hour += math.ceil(pile/K)
+            
+            if hour > h : 
+                l = K + 1
+            elif hour <= h:
+                result = K
+                r = K - 1
+        return result
+    
 class MinStack:
 
 
@@ -998,5 +1057,7 @@ def main():
     #print(solution_Ex.threeSumAlternative(nums=[1,0,-1,2,-1,-4]))
     #print(solution_Ex.maxArea(heights = [1,7,2,5,4,7,3,6]))
     #print(solution_Ex.binarySearch(nums = [-3,1,0,1,4,7],target = 9))
-    print(solution_Ex.searchMatrix(matrix = [[1,2,4,8],[10,11,12,13],[14,20,30,40]], target = 15))
+    #print(solution_Ex.searchMatrix(matrix = [[1,2,4,8],[10,11,12,13],[14,20,30,40]], target = 15))
+    #print(solution_Ex.minEatingSpeed(piles = [1,4,3,2], h = 9))
+    print(solution_Ex.minEatingSpeedAlternative(piles=[25,10,23,4], h = 4))
 main()
