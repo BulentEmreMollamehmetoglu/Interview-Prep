@@ -999,34 +999,41 @@ class Solution:
                 l = K + 1
         return result
     
-class MinStack:
-
-
-    # [1,2,0]
-    def __init__(self):
-        self.stack = [] # initializes the stack object
-        self.min_stack = []
-    def push(self, val : int) -> None:
-        self.stack.append(val)
-        if not self.min_stack or val <= self.min_stack[-1]:
-            self.min_stack.append(val)
 
 
 
-    def pop(self) -> None:
-        val = self.stack.pop()
-        if self.min_stack and val < self.min_stack[-1]:
-            self.min_stack.pop()
 
-    def top(self) -> int:
-        return self.stack[-1]
+    '''
+    nums : list[int] : originally sorted ascending order
+    1 - n times rotated.
 
-    def getMin(self) -> int:
-        if not self.min_stack:
-            return self.stack[0]
-        else:
-            return self.min_stack[-1]
+    all elements are unique
+    [1,2,3,4,5,6] -> rotated 4 
+    [3,4,5,6,1,2]
     
+    '''
+
+
+    def findMin(self, nums : list[int]) -> int : 
+        l , r = 0, len(nums) - 1
+        M = 0
+        while l < r :
+
+            M = (l + r) // 2
+
+            if nums[M] > nums[r]:
+                l = M + 1
+            else:
+                r = M
+        return nums[M]
+
+
+
+
+
+
+
+
 def main():
 
     solution_Ex = Solution()
@@ -1059,5 +1066,37 @@ def main():
     #print(solution_Ex.binarySearch(nums = [-3,1,0,1,4,7],target = 9))
     #print(solution_Ex.searchMatrix(matrix = [[1,2,4,8],[10,11,12,13],[14,20,30,40]], target = 15))
     #print(solution_Ex.minEatingSpeed(piles = [1,4,3,2], h = 9))
-    print(solution_Ex.minEatingSpeedAlternative(piles=[25,10,23,4], h = 4))
+    #print(solution_Ex.minEatingSpeedAlternative(piles=[25,10,23,4], h = 4))
+    print(solution_Ex.findMin(nums=[3,4,5,6,1,2]))
 main()
+
+
+
+
+class MinStack:
+
+
+    # [1,2,0]
+    def __init__(self):
+        self.stack = [] # initializes the stack object
+        self.min_stack = []
+    def push(self, val : int) -> None:
+        self.stack.append(val)
+        if not self.min_stack or val <= self.min_stack[-1]:
+            self.min_stack.append(val)
+
+
+
+    def pop(self) -> None:
+        val = self.stack.pop()
+        if self.min_stack and val < self.min_stack[-1]:
+            self.min_stack.pop()
+
+    def top(self) -> int:
+        return self.stack[-1]
+
+    def getMin(self) -> int:
+        if not self.min_stack:
+            return self.stack[0]
+        else:
+            return self.min_stack[-1]
