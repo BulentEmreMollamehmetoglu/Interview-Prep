@@ -1042,9 +1042,78 @@ class Solution:
             else:
                 r = M
         return nums[r]
+    '''
+    Time and space complexities are :
+    Time -> O(log m ) m is the size of the array
+    Space -> l,r constant variables, O(1)
+    '''
+
+
+    def findMinAlternativeSecond(self, nums : list[int]) -> int:
+        for i in nums:
+            if i < len(nums) - 1 and nums[i+1] < nums[i]:
+                return nums[i+1]
+            else:
+                return nums[0]
+    
+
+
+    def findMinSecond(self,nums : list[int]) -> int :
+        l , r = 0, len(nums) - 1
+        res = nums[0]
+        while l <= r :
+            if nums[l] < nums[r]:
+                res = min(res,nums[l])
+                break
+            M = (l + r) // 2 
+            res = min(res,nums[M])
+            if nums[M] >= nums[l]:
+                l = M + 1
+            else:
+                r = M - 1
+        return res
 
 
 
+
+    def searchBinary(self, nums: list[int], target : int) -> int:
+        l , r = 0 , len(nums) - 1
+        
+        while l <= r :
+            M = (l + r) // 2
+            if target == nums[M]:
+                return M
+
+            # left half sorted
+            if nums[M] >= nums[l]:
+                if nums[M] >= target >= nums[l]:
+                    r = M - 1
+                else:
+                    l = M + 1
+
+            # right half sorted
+            else:
+                if nums[M] <= target <= nums[r]:
+                    l = M + 1
+                else:
+                    r = M - 1
+        return -1
+    
+        '''
+        nums : list[int]
+        target : int
+        return : int -> index of target
+        else -1
+        nums = [3,4,5,6,1,2], target = 1
+        nums = [4,5,6,7,8,9,1,2,3] target = 4
+        I can use l & r pointers to make sure that the target
+        is not in that range
+
+
+        [3,4,5,6,1,2], target = 4
+        '''
+
+        
 
 
 
@@ -1084,7 +1153,8 @@ def main():
     #print(solution_Ex.minEatingSpeed(piles = [1,4,3,2], h = 9))
     #print(solution_Ex.minEatingSpeedAlternative(piles=[25,10,23,4], h = 4))
     #print(solution_Ex.findMin(nums=[3,4,5,6,1,2]))
-    print(solution_Ex.findMinAlternative(nums=[3,4,5,6,1,2]))
+    #print(solution_Ex.findMinAlternative(nums=[3,4,5,6,1,2]))
+    print(solution_Ex.searchBinary(nums=[5,1,3],target = 3))
 main()
 
 
