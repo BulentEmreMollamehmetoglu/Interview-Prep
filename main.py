@@ -1086,19 +1086,19 @@ class Solution:
 
             # left half sorted
             if nums[M] >= nums[l]:
-                if nums[M] >= target >= nums[l]:
-                    r = M - 1
-                else:
+                if target > nums[M]:
                     l = M + 1
+                else:
+                    r = M - 1
 
             # right half sorted
             else:
-                if nums[M] <= target <= nums[r]:
-                    l = M + 1
-                else:
+                if target < nums[M]:
                     r = M - 1
+                else:
+                    l = M + 1
         return -1
-    
+
         '''
         nums : list[int]
         target : int
@@ -1114,9 +1114,28 @@ class Solution:
         '''
 
         
+    def searchBinaryAlternative(self, nums: list[int], target : int) -> int:
+        l, r = 0 , len(nums) - 1
+        # nums = [4,5,6,7,8,1,2,3], target = 2
+        while l <= r :
+            M = (l + r) // 2
 
+            if target == nums[M]:
+                return M
+            # left sorted  
+            if nums[M] > nums[l]:
+                if nums[l] <= target <= nums[M]:
+                    r = M - 1
+                else:
+                    l = M + 1
+            # right sorted
+            else:
+                if nums[M] <= target <= nums[r]:
+                    l = M + 1
+                else:
+                    r = M - 1
 
-
+        return -1
 
 
 def main():
