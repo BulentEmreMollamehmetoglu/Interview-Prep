@@ -1128,7 +1128,7 @@ class Solution:
                     r = M - 1
                 else:
                     l = M + 1
-            # right sorted
+            # right sortedz
             else:
                 if nums[M] <= target <= nums[r]:
                     l = M + 1
@@ -1137,7 +1137,41 @@ class Solution:
 
         return -1
 
+    def duplicates(self, nums : list[int], K : int) -> bool:
+        # [1,2,3,2,3,3]
+        # Given an array, return true if there are two elements within a window of size k that are equal
+        for L in range(len(nums)):
+            for R in range(L+1, min(len(nums), L + K)):
+                if nums[L] == nums[R]:
+                    return True
+        
+        return False
+        # O(n * k)
 
+    # optimized
+
+    # hash set
+
+    def containsNearbyDuplicate(self, nums: List[int], k: int) -> bool:
+        for L in range(len(nums)):
+            for R in range(L + 1, min(len(nums), L + k + 1)):
+                if nums[L] == nums[R]:
+                    return True
+        return False
+    
+
+
+    def containsNearbyDuplicate(self, nums: List[int], k: int) -> bool:
+        window = set()
+        L = 0
+        for R in range(len(nums)):
+            if R - L > k:
+                window.remove(nums[L])
+                L += 1
+            if nums[R] in window:
+                return True
+            window.add(nums[R])
+        return False
 def main():
 
     solution_Ex = Solution()
