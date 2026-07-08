@@ -1218,7 +1218,21 @@ class Solution:
                 result += 1
             sum = 0
         return result
+    # Time : O(n**2) Space : O(1)
 
+    def numOfSubarraysOptimized(self, arr: List[int], k: int, threshold: int) -> int:
+        result, avg = 0,0
+        L = 0
+        for R in range(len(arr)):
+            avg += arr[R]
+            if R - L + 1 == k:
+                if avg / k >= threshold:
+                    result += 1
+                avg -= arr[L]
+                L += 1
+            
+
+        return result
 def main():
 
 
@@ -1256,7 +1270,7 @@ def main():
     #print(solution_Ex.findMin(nums=[3,4,5,6,1,2]))
     #print(solution_Ex.findMinAlternative(nums=[3,4,5,6,1,2]))
     #print(solution_Ex.searchBinary(nums=[5,1,3],target = 3))
-    print(solution_Ex.numOfSubarrays(arr=[2,2,2,2,5,5,5,8], k = 3, threshold= 4))
+    print(solution_Ex.numOfSubarraysOptimized(arr=[2,2,2,2,5,5,5,8], k = 3, threshold= 4))
 main()
 
 
