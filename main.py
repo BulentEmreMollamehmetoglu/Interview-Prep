@@ -1172,6 +1172,39 @@ class Solution:
                 return True
             window.add(nums[R])
         return False
+
+
+
+
+    def slidingWindow(self, nums : list[int] , k : int) -> bool :
+        # k = 2 if are there 2 values which are the same return true otherwise false
+        for L in range(len(nums)):
+            for R in range(L + 1, min(len(nums), L + k)):
+                if nums[L] == nums[R]:
+                    return True
+        
+        return False
+
+
+
+    def slidingWindow(self, nums : list[int] , k : int) -> bool:
+        window = set()
+        L = 0
+        for R in range(len(nums)):
+            if R - L > k : 
+                window.remove(nums[L])
+                L += 1
+            if nums[R] in window:
+                return True
+            window.add(nums[R])
+        return False
+
+
+
+
+
+
+
 def main():
 
     solution_Ex = Solution()
