@@ -1201,11 +1201,26 @@ class Solution:
 
 
 
+    '''
+    arr : list[int] , k : int , threshold : int
+    return -> num of subarrays of size k and average >= threshold
+    avg = sum() / len()
 
+    '''
+    def numOfSubarrays(self, arr: List[int], k: int, threshold: int) -> int:
+        result,sum = 0,0
+        for L in range(len(arr)):
+            sum += arr[L]
+            for R in range(L + 1, min(len(arr), L + k)):
+                sum += arr[R]
 
-
+            if sum / k >=  threshold:
+                result += 1
+            sum = 0
+        return result
 
 def main():
+
 
     solution_Ex = Solution()
     '''
@@ -1240,7 +1255,8 @@ def main():
     #print(solution_Ex.minEatingSpeedAlternative(piles=[25,10,23,4], h = 4))
     #print(solution_Ex.findMin(nums=[3,4,5,6,1,2]))
     #print(solution_Ex.findMinAlternative(nums=[3,4,5,6,1,2]))
-    print(solution_Ex.searchBinary(nums=[5,1,3],target = 3))
+    #print(solution_Ex.searchBinary(nums=[5,1,3],target = 3))
+    print(solution_Ex.numOfSubarrays(arr=[2,2,2,2,5,5,5,8], k = 3, threshold= 4))
 main()
 
 
