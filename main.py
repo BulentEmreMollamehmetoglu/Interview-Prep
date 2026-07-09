@@ -1230,9 +1230,28 @@ class Solution:
                     result += 1
                 avg -= arr[L]
                 L += 1
-            
-
         return result
+    
+    # Time O(n) Space O(1)
+
+
+    '''
+    prices : list[int]
+    return : int max profit
+    
+    [10,1,5,6,7,1]
+
+    6
+    '''
+
+    def maxProfit(self, prices: List[int]) -> int:
+        minPrice = 100
+        maxProfit = 0
+        for price in prices:
+            minPrice = min(minPrice, price)
+            profit = price - minPrice
+            maxProfit = max(maxProfit,profit)
+        return maxProfit
 def main():
 
 
@@ -1270,7 +1289,8 @@ def main():
     #print(solution_Ex.findMin(nums=[3,4,5,6,1,2]))
     #print(solution_Ex.findMinAlternative(nums=[3,4,5,6,1,2]))
     #print(solution_Ex.searchBinary(nums=[5,1,3],target = 3))
-    print(solution_Ex.numOfSubarraysOptimized(arr=[2,2,2,2,5,5,5,8], k = 3, threshold= 4))
+    #print(solution_Ex.numOfSubarraysOptimized(arr=[2,2,2,2,5,5,5,8], k = 3, threshold= 4))
+    print(solution_Ex.maxProfit(prices=[7,1,5,3,6,4]))
 main()
 
 
