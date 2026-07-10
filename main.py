@@ -1266,11 +1266,27 @@ class Solution:
 
 
 
+    def longestSubarray(self, nums : list[int]) -> int:
+        L, length= 0, 0
+
+        for R in range(len(nums)):
+            if nums[L] != nums[R]:
+                L = R
+            length = max(length, R - L + 1)
+        return length
 
 
 
-
-
+    def shortestSubarray(self, nums : list[int], target : int) -> int:
+        L, length = 0, float("inf")
+        totalSum = 0
+        for R in range(len(nums)):
+            totalSum += nums[R]
+            while totalSum >= target:
+                length = min(length, R - L + 1)
+                totalSum -= nums[L]
+                L += 1
+        return 0 if length == float("inf") else length
 
 
 def main():
@@ -1311,7 +1327,8 @@ def main():
     #print(solution_Ex.findMinAlternative(nums=[3,4,5,6,1,2]))
     #print(solution_Ex.searchBinary(nums=[5,1,3],target = 3))
     #print(solution_Ex.numOfSubarraysOptimized(arr=[2,2,2,2,5,5,5,8], k = 3, threshold= 4))
-    print(solution_Ex.maxProfitSecond(prices=[7,6,4,3,1]))
+    #print(solution_Ex.maxProfitSecond(prices=[7,6,4,3,1]))
+    print(solution_Ex.shortestSubarray(nums=[2,3,1,2,4,3],target=6))
 main()
 
 
