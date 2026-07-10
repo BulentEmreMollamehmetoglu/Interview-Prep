@@ -1252,6 +1252,27 @@ class Solution:
             profit = price - minPrice
             maxProfit = max(maxProfit,profit)
         return maxProfit
+
+
+
+
+    def maxProfitSecond(self, prices : list[int]) -> int : 
+        minPrice = 1000
+        maxProfit = 0
+        for price in range(len(prices)):
+            minPrice = min(minPrice,price)
+            maxProfit = max(price - minPrice,maxProfit)
+        return maxProfit
+
+
+
+
+
+
+
+
+
+
 def main():
 
 
@@ -1290,7 +1311,7 @@ def main():
     #print(solution_Ex.findMinAlternative(nums=[3,4,5,6,1,2]))
     #print(solution_Ex.searchBinary(nums=[5,1,3],target = 3))
     #print(solution_Ex.numOfSubarraysOptimized(arr=[2,2,2,2,5,5,5,8], k = 3, threshold= 4))
-    print(solution_Ex.maxProfit(prices=[7,1,5,3,6,4]))
+    print(solution_Ex.maxProfitSecond(prices=[7,6,4,3,1]))
 main()
 
 
