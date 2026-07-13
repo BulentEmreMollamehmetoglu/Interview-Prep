@@ -1287,9 +1287,48 @@ class Solution:
                 totalSum -= nums[L]
                 L += 1
         return 0 if length == float("inf") else length
+    
+
+    '''
+    nums : list[int]
+    target : int -> positive
+
+    return min length subarray
+    
+    '''
+
+    def lengthOfLongestSubstring(self, s: str) -> int:
+        # a b c a b c b b
+        L, window = 0, set()
+        length = 0
+        for R in range(len(s)):
+            if s[R] not in window:
+                window.add(s[R])
+            else:
+                while s[R] in window:
+                    window.remove(s[L])
+                    L += 1
+            length = max(length, R - L + 1)
+        return length
 
 
+
+
+    def lengthOfLongestSubstringAlternative(self,s:str) -> int :
+        #abcabcbb
+        L, window = 0, set()
+        length = 1
+        for R in range(len(s)):  
+            if s[R] in window:
+                while s[R] in window:
+                    window.remove(s[L])
+                    L += 1      
+            window.add(s[R])
+            length = max(length, R - L + 1)
+        return length
 def main():
+
+
 
 
     solution_Ex = Solution()
@@ -1328,7 +1367,7 @@ def main():
     #print(solution_Ex.searchBinary(nums=[5,1,3],target = 3))
     #print(solution_Ex.numOfSubarraysOptimized(arr=[2,2,2,2,5,5,5,8], k = 3, threshold= 4))
     #print(solution_Ex.maxProfitSecond(prices=[7,6,4,3,1]))
-    print(solution_Ex.shortestSubarray(nums=[2,3,1,2,4,3],target=6))
+    print(solution_Ex.lengthOfLongestSubstringAlternative(s="bbb"))
 main()
 
 
