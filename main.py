@@ -1326,7 +1326,46 @@ class Solution:
             window.add(s[R])
             length = max(length, R - L + 1)
         return length
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    def lengthOfLongestSubstringInArr(self,s : str) -> int :
+        #abcabcbb
+        L,window = 0, set()
+        length = 0
+        for R in range(len(s)):
+            while s[R] in window:
+                window.remove(s[L])
+                L += 1
+            window.add(s[R])
+            length = max(length, R - L + 1)
+        return length
+
+
+    '''
+    s : str -> consists only uppercase
+    k : int
+    
+    
+    '''
 def main():
+
 
 
 
