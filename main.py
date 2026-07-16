@@ -1371,6 +1371,45 @@ class Solution:
 
         # Time Complexity : max(hash_map.values()) this takes O(n) time and the outer loop takes O(n) so outcome O(n)
         # Space complexity : O(1)
+
+
+
+    '''
+    s1, s2 : str , str
+    true if s2 contains a permutation of s1
+    or false otherwise
+
+
+    s1="abc"
+    s2="lecabee"
+
+    
+    while char in window : 
+        window.remove(s2[L])
+        L += 1
+    if s2[R] in s1 and s2[R] not in window:
+        window.add(s2[R])
+    return true if len(window) == len(s1) else false
+
+
+
+    '''
+
+    def checkInclusion(self, s1: str, s2: str) -> bool :
+        L = 0
+        window = set()
+        for R in range(len(s2)):
+
+            if s2[R] in s1:
+                window.add(s2[R])
+            else:
+                L += 1
+
+            while s2[R] in window: 
+                window.remove(s2[L])
+                L += 1
+            window.add(s2[R])
+        return True if len(window) == len(s1) else False
 def main():
 
 
@@ -1413,7 +1452,7 @@ def main():
     #print(solution_Ex.searchBinary(nums=[5,1,3],target = 3))
     #print(solution_Ex.numOfSubarraysOptimized(arr=[2,2,2,2,5,5,5,8], k = 3, threshold= 4))
     #print(solution_Ex.maxProfitSecond(prices=[7,6,4,3,1]))
-    print(solution_Ex.characterReplacement(s="ABAA", k = 0))
+    print(solution_Ex.checkInclusion(s1="ab",s2="eidboaoo"))
 main()
 
 
