@@ -1326,24 +1326,6 @@ class Solution:
             window.add(s[R])
             length = max(length, R - L + 1)
         return length
-    
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     def lengthOfLongestSubstringInArr(self,s : str) -> int :
         #abcabcbb
@@ -1362,8 +1344,33 @@ class Solution:
     s : str -> consists only uppercase
     k : int
     
+    temp = k
+    hash_map = {A : 4, B : 3}
+    AAABABB
+    if k >= 1 and char is not max(hash_map.values()):
+        continue
     
     '''
+
+    def characterReplacement(self, s : str, k : int) -> int :
+        # ABAA
+        L,length = 0,0
+        hash_map = {} # consists only uppercase -> worst case scenario 26 char
+        for R in range(len(s)):
+            hash_map[s[R]] = hash_map.get(s[R], 0) + 1
+            calc = (R - L + 1) - max(hash_map.values())
+            if calc <= k :
+                length = max(length, (R - L + 1))
+            else:
+                while calc > k:
+                    hash_map[s[L]] = hash_map[s[L]] - 1
+                    L += 1
+                    calc = (R - L + 1) - max(hash_map.values())      
+        return length
+    
+
+        # Time Complexity : max(hash_map.values()) this takes O(n) time and the outer loop takes O(n) so outcome O(n)
+        # Space complexity : O(1)
 def main():
 
 
@@ -1406,7 +1413,7 @@ def main():
     #print(solution_Ex.searchBinary(nums=[5,1,3],target = 3))
     #print(solution_Ex.numOfSubarraysOptimized(arr=[2,2,2,2,5,5,5,8], k = 3, threshold= 4))
     #print(solution_Ex.maxProfitSecond(prices=[7,6,4,3,1]))
-    print(solution_Ex.lengthOfLongestSubstringAlternative(s="bbb"))
+    print(solution_Ex.characterReplacement(s="ABAA", k = 0))
 main()
 
 
