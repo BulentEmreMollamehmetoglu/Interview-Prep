@@ -1397,19 +1397,37 @@ class Solution:
 
     def checkInclusion(self, s1: str, s2: str) -> bool :
         L = 0
-        window = set()
+        hash_map = {}
+        hash_map_R = {}
+        for i in range(len(s1)):
+            hash_map[s1[i]] = hash_map.get(s1[i],0) + 1
+
         for R in range(len(s2)):
 
-            if s2[R] in s1:
-                window.add(s2[R])
-            else:
+            hash_map_R[s2[R]] = hash_map_R.get(s2[R],0) + 1
+
+            if sum(hash_map_R.values()) > len(s1):
+                hash_map_R[s2[L]] -= 1
+                if hash_map_R[s2[L]] == 0:
+                    del hash_map_R[s2[L]]
                 L += 1
 
-            while s2[R] in window: 
-                window.remove(s2[L])
-                L += 1
-            window.add(s2[R])
-        return True if len(window) == len(s1) else False
+            if hash_map == hash_map_R:
+                return True
+        return False
+
+        # Time complexity : O(n*m) -> m Comparing two hashmaps take O(m) but m is 26 so it becomes O(n)
+        # Space : O(m) -> m is the lowercase english letters so 26. Space complexity becomes O(1)
+        '''
+        Iterate through the s2 and look for the s1 chars.
+        If I found out a char that is in the s1 then I need to add to the set.
+
+        
+
+
+        I could find the permutation substring in anywhere in the s2 arr. So I need to check that condition inside of the loop.
+        
+        '''
 def main():
 
 
