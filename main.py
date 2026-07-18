@@ -1428,6 +1428,36 @@ class Solution:
         I could find the permutation substring in anywhere in the s2 arr. So I need to check that condition inside of the loop.
         
         '''
+
+
+
+
+
+
+    # s1 = "abc", s2 = "lecabee"
+
+    def checkInclusionAgain(self, s1 : str, s2: str) -> bool :
+        L = 0
+        hash_maps1 = {}
+        hash_maps2 = {}
+
+        for val in s1:
+            hash_maps1[val] = hash_maps1.get(val,0) + 1
+        # {"a" : 1, "b" : 1, "c" : 1}
+        for R in range(len(s2)):
+            hash_maps2[s2[R]] = hash_maps2.get(s2[R],0) + 1
+
+            if hash_maps1 == hash_maps2:
+                return True
+            
+            if sum(hash_maps2.values()) == len(s1):
+                hash_maps2[s2[L]] -= 1
+                if hash_maps2[s2[L]] == 0:
+                    del hash_maps2[s2[L]]
+                L += 1                
+        return False
+            
+            
 def main():
 
 
@@ -1470,7 +1500,7 @@ def main():
     #print(solution_Ex.searchBinary(nums=[5,1,3],target = 3))
     #print(solution_Ex.numOfSubarraysOptimized(arr=[2,2,2,2,5,5,5,8], k = 3, threshold= 4))
     #print(solution_Ex.maxProfitSecond(prices=[7,6,4,3,1]))
-    print(solution_Ex.checkInclusion(s1="ab",s2="eidboaoo"))
+    print(solution_Ex.checkInclusionAgain(s1="abc",s2="lecabee"))
 main()
 
 
