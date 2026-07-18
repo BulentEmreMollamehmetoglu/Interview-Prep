@@ -1456,8 +1456,24 @@ class Solution:
                     del hash_maps2[s2[L]]
                 L += 1                
         return False
-            
-            
+    
+    def reverseList(self, head: ListNode) -> ListNode:
+        prev = None
+        curr = head
+        while curr : 
+            next = curr.next
+            curr.next = prev
+            prev = curr
+            curr = next
+        curr = prev
+        return curr
+
+
+    
+class ListNode:
+    def __init__(self, val=0, next=None):
+        self.val = val
+        self.next = next
 def main():
 
 
@@ -1465,42 +1481,17 @@ def main():
 
 
     solution_Ex = Solution()
-    '''
-    minStack = MinStack()
-    print(f"stack --> {minStack.stack}")
-    minStack.push(-2);
-    minStack.push(-2);
-    minStack.push(-3);
-    minStack.push(-3);
-    print(f"stack --> {minStack.stack}")
-    print(f" min stack --> {minStack.min_stack}")
-    print(minStack.getMin()) 
-    minStack.pop();
-    print(f"stack --> {minStack.stack}")
-    print(f" min stack --> {minStack.min_stack}")
-    minStack.top();    
-    print(f"stack --> {minStack.stack}")
-    minStack.getMin(); 
-    print(f"stack --> {minStack.stack}")
-    '''
-    #print(solution_Ex.evalRPN(tokens=["1","2","+","3","*","4","-"]))
-    #print(solution_Ex.dailyTemperatures(temperatures = [30,38,30,36,35,40,28]))
-    #print(solution_Ex.dailyTemperatureStack(temperatures = [30,38,30,36,35,40,28]))
-    #print(solution_Ex.carFleet(target = 10, position=[6,8], speed=[3,2]))
-    #print(solution_Ex.carFleetAlternative(target = 10, position=[1,4], speed=[3,2]))
-    #print(solution_Ex.threeSum(nums=[-2,0,0,2,2]))
-    #print(solution_Ex.threeSumAlternative(nums=[1,0,-1,2,-1,-4]))
-    #print(solution_Ex.maxArea(heights = [1,7,2,5,4,7,3,6]))
-    #print(solution_Ex.binarySearch(nums = [-3,1,0,1,4,7],target = 9))
-    #print(solution_Ex.searchMatrix(matrix = [[1,2,4,8],[10,11,12,13],[14,20,30,40]], target = 15))
-    #print(solution_Ex.minEatingSpeed(piles = [1,4,3,2], h = 9))
-    #print(solution_Ex.minEatingSpeedAlternative(piles=[25,10,23,4], h = 4))
-    #print(solution_Ex.findMin(nums=[3,4,5,6,1,2]))
-    #print(solution_Ex.findMinAlternative(nums=[3,4,5,6,1,2]))
-    #print(solution_Ex.searchBinary(nums=[5,1,3],target = 3))
-    #print(solution_Ex.numOfSubarraysOptimized(arr=[2,2,2,2,5,5,5,8], k = 3, threshold= 4))
-    #print(solution_Ex.maxProfitSecond(prices=[7,6,4,3,1]))
-    print(solution_Ex.checkInclusionAgain(s1="abc",s2="lecabee"))
+    a = ListNode(3)
+    b = ListNode(7)
+    c = ListNode(2)
+    a.next = b
+    b.next = c
+    head = a
+    curr = head
+
+    while curr.next != None:
+        print(curr.val)
+        curr = curr.next
 main()
 
 
