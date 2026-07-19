@@ -1469,18 +1469,36 @@ class Solution:
         return curr
 
 
+
     
 class ListNode:
-    def __init__(self, val=0, next=None):
+    def __init__(self,val,next = None):
         self.val = val
         self.next = next
+
+
+    def reverseList(self, head : ListNode) -> ListNode:
+        # head [0,1,2,3]
+        # 0 -> 1 -> 2 -> 3 -> None
+        # None <- 0 <- 1 <- 2 <- 3
+        curr = head
+        prev = None
+        while curr:
+            next = curr.next # 1
+            curr.next = prev # None
+            prev = curr
+            curr = next
+        head = prev
+        return head
 def main():
 
-
-
-
-
     solution_Ex = Solution()
+
+
+
+
+
+
     a = ListNode(3)
     b = ListNode(7)
     c = ListNode(2)
@@ -1488,10 +1506,6 @@ def main():
     b.next = c
     head = a
     curr = head
-
-    while curr.next != None:
-        print(curr.val)
-        curr = curr.next
 main()
 
 
