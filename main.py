@@ -1509,6 +1509,22 @@ class ListNode:
         tail.next = curr1 if curr1 else curr2
         return resultList.next
 
+
+    def mergeTwoListsAlternative(self, list1: ListNode , list2 : ListNode) -> ListNode:
+        curr1, curr2 = list1, list2
+        resultList = ListNode()
+        tail = resultList
+        while curr1 and curr2 :
+            if curr1.val <= curr2.val:
+                tail.next = curr1
+                tail = tail.next
+                curr1 = curr1.next
+            else:
+                tail.next = curr2
+                tail = tail.next
+                curr2 = curr2.next
+        tail.next = curr1 if curr1 else curr2
+        return resultList.next
 def main():
 
     solution_Ex = Solution()
