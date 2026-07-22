@@ -1525,6 +1525,17 @@ class ListNode:
                 curr2 = curr2.next
         tail.next = curr1 if curr1 else curr2
         return resultList.next
+
+
+    def hashCycle(self, head : ListNode) -> bool:
+        curr = head
+        tempSet = set()
+        while curr:
+            tempSet.add(curr)
+            if curr.next and curr.next in tempSet:
+                return True
+            curr = curr.next
+        return False
 def main():
 
     solution_Ex = Solution()
