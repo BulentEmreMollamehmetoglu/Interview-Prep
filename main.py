@@ -1547,6 +1547,17 @@ class ListNode:
             if slow == fast:
                 return True
         return False
+
+    
+    def hasCycleAlternativeSecondTime(self, head: ListNode) -> bool:
+        fast,slow = head,head
+        while (fast and slow) and fast.next:
+            slow = slow.next
+            fast = fast.next.next
+
+            if slow == fast:
+                return True
+        return False
 def main():
 
     solution_Ex = Solution()
