@@ -1558,6 +1558,21 @@ class ListNode:
             if slow == fast:
                 return True
         return False
+
+
+    def middleNode(self, head: Optional[ListNode]) -> Optional[ListNode]:
+        curr = head
+        length = 0
+        while curr:
+            length += 1
+            curr = curr.next
+
+        headNode = head
+        halfLen = length // 2
+        while halfLen > 0:
+            headNode = headNode.next
+            halfLen -= 1
+        return headNode
 def main():
 
     solution_Ex = Solution()
