@@ -1573,6 +1573,14 @@ class ListNode:
             headNode = headNode.next
             halfLen -= 1
         return headNode
+
+    def middleNodeAlgorithm(self, head: Optional[ListNode]) -> Optional[ListNode]:
+        fast,slow = head,head
+        while (fast and slow) and fast.next:
+            slow = slow.next
+            fast = fast.next.next
+
+        return slow
 def main():
 
     solution_Ex = Solution()
