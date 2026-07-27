@@ -1560,7 +1560,7 @@ class ListNode:
         return False
 
 
-    def middleNode(self, head: Optional[ListNode]) -> Optional[ListNode]:
+    def middleNode(self, head: ListNode) -> ListNode:
         curr = head
         length = 0
         while curr:
@@ -1574,13 +1574,20 @@ class ListNode:
             halfLen -= 1
         return headNode
 
-    def middleNodeAlgorithm(self, head: Optional[ListNode]) -> Optional[ListNode]:
+    def middleNodeAlgorithm(self, head: ListNode) -> ListNode:
         fast,slow = head,head
         while (fast and slow) and fast.next:
             slow = slow.next
             fast = fast.next.next
 
         return slow
+
+    def findDuplicate(self , nums: List[int]) -> int:
+        window = set()
+        for val in nums:
+            if val in window:
+                return val
+            window.add(val)
 def main():
 
     solution_Ex = Solution()
