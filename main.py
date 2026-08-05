@@ -1588,6 +1588,21 @@ class ListNode:
             if val in window:
                 return val
             window.add(val)
+
+    def findDuplicateAlternative(self, nums: List[int]) -> int:
+        fast, slow = 0,0
+        while True:
+            slow = nums[slow]
+            fast = nums[nums[fast]]
+            if slow == fast:
+                break
+         
+        slow2 = 0
+        while True:
+            slow = nums[slow]
+            slow2 = nums[slow2]
+            if slow == slow2:
+                return slow
 def main():
 
     solution_Ex = Solution()
