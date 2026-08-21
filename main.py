@@ -1,3 +1,4 @@
+from logging import NullHandler
 import math
 import re
 '''
@@ -1603,6 +1604,31 @@ class ListNode:
             slow2 = nums[slow2]
             if slow == slow2:
                 return slow
+
+    def binarySearchTree(self, root , target) :
+        if not root:
+            return False
+
+        if target > root.val:
+            return binarySearchTree(root.right, target)
+
+        elif target < root.val:
+            return binarySearchTree(root.left , target)
+
+        else:
+            return True
+        # It takes logn time
+        
+    def searchBinaryTree(self, root , target):
+        while root:
+            if target > root.val:
+                root = root.right
+            elif target < root.val:
+                root = root.left
+            else:
+                return True
+        return False
+
 def main():
 
     solution_Ex = Solution()
@@ -1622,7 +1648,11 @@ def main():
 main()
 
 
-
+class TreeNode :
+    def __init__(self,val):
+        self.val = val
+        self.left = None
+        self.right = None
 
 class MinStack:
 
