@@ -1657,7 +1657,55 @@ class ListNode:
         return False
 
 
+    def insertBST(self, root, val):
+        if not root:
+            return TreeNode(val)
 
+        if val > root.val:
+            root.right = self.insertBST(root.right, val)
+
+        elif val < root.val:
+            root.left = self.insertBST(root.left, val)
+
+        return root
+
+    def findMinBST(self, root):
+
+        if not root :
+            return None
+        
+        if not root.left : 
+            return root
+
+        return self.findMinBST(root.left)
+
+    def minValueNode(self, root) : 
+        curr = root
+        while curr and curr.left:
+            curr = curr.left
+        return curr
+
+
+
+    def removeBST(self,root, val):
+
+        if not root:
+            return None
+
+        if val > root.val:
+            root.right = self.removeBST(root.right,val)
+        elif val < root.val:
+            root.left = self.removeBST(root.left,val)
+        else:
+            if not root.left:
+                return root.right
+            elif not root.right:
+                return root.left
+            else:
+                minNode = self.minValueNode(root.right)
+                root.val = minNode.val
+                root.right = self.removeBST(root.right,minNode.val)
+        return root
 def main(): 
 
     solution_Ex = Solution()
