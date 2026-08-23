@@ -1618,7 +1618,7 @@ class ListNode:
         else:
             return True
         # It takes logn time
-        
+
     def searchBinaryTree(self, root , target):
         while root:
             if target > root.val:
@@ -1629,7 +1629,36 @@ class ListNode:
                 return True
         return False
 
-def main():
+    def binarySearchTreeRecursion(self, root, target) -> bool:
+
+        if not root : 
+            return False
+        
+        if root.val == target:
+            return True
+        elif root.val > target:
+            return(root.left,target)
+        else:
+            return(root.right,target)
+
+
+    def binarySearchTreeWhile(self,root,target) -> bool :
+        while root:
+
+            if root.val > target:
+                root = root.left
+
+            elif root.val < target :
+                root = root.right
+
+            else:
+                return True
+            
+        return False
+
+
+
+def main(): 
 
     solution_Ex = Solution()
 
