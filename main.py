@@ -1706,6 +1706,41 @@ class ListNode:
                 root.val = minNode.val
                 root.right = self.removeBST(root.right,minNode.val)
         return root
+
+
+    def findMinInBST(self,root : Optional[TreeNode]) -> Optional[TreeNode]:
+        curr = root
+        while curr and curr.left:
+            curr = curr.left
+        return curr
+
+    def deleteNode(self, root: Optional[TreeNode], key: int) -> Optional[TreeNode]:
+        '''
+        self.deleteNode(5,1) -> root.left = self.deleteNode(root.left,key)
+        self.deleteNode(3,1) -> root.left = self.deleteNode(root.left,key)
+        self.deleteNode(1,1)
+        '''
+
+
+        if not root:
+            return None
+
+        if key < root.val:
+            root.left = self.deleteNode(root.left,key)
+        elif key > root.val:
+            root.right = self.deleteNode(root.right,key)
+        else:
+            if not root.left:
+                return root.right
+            elif not root.right:
+                return root.left
+            else:
+                minValueNode = self.findMinInBST(root.right)
+                root.val = minValueNode.val
+                root.right = self.deleteNode(root.right,minValueNode.val) # we need to remove the duplicate, because we swapped the values -> root.val = minValueNode.val in this line
+        return root
+
+        # takes logn 
 def main(): 
 
     solution_Ex = Solution()
