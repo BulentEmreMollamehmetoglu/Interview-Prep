@@ -1741,6 +1741,34 @@ class ListNode:
         return root
 
         # takes logn 
+
+    def inOrder(self,root):
+        if not root:
+            return
+        
+        self.inOrder(root.left)
+        print(root.val)
+        self.inOrder(root.right)
+
+    # 4 2 5 1 3
+    def preOrder(self,root):
+        if not root:
+            return
+        
+        print(root.val)
+        self.inOrder(root.left)
+        self.inOrder(root.right)
+    # 1 2 4 5 3
+
+    def postOrder(self,root):
+        if not root:
+            return
+        
+        self.inOrder(root.left)
+        self.inOrder(root.right)
+        print(root.val)
+    # 4 5 2 3 1
+
 def main(): 
 
     solution_Ex = Solution()
