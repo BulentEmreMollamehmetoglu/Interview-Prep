@@ -1740,8 +1740,15 @@ class ListNode:
                 root.right = self.deleteNode(root.right,minValueNode.val) # we need to remove the duplicate, because we swapped the values -> root.val = minValueNode.val in this line
         return root
 
-        # takes logn 
-
+        # takes logn
+        #  
+    '''
+        1
+        / \
+        2   3
+    / \
+    4   5
+    '''
     def inOrder(self,root):
         if not root:
             return
@@ -1769,6 +1776,21 @@ class ListNode:
         print(root.val)
     # 4 5 2 3 1
 
+
+    def bstInorderTraversal(self,root):
+        stack = []
+        res = []
+        if not root:
+            return res
+        curr = root
+        while curr or stack:
+            while curr:
+                stack.append(curr)
+                curr = curr.left
+
+            curr = stack.pop()
+            res.append(curr.val)
+            curr = curr.right
 def main(): 
 
     solution_Ex = Solution()
