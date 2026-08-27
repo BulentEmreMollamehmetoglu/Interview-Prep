@@ -1791,6 +1791,26 @@ class ListNode:
             curr = stack.pop()
             res.append(curr.val)
             curr = curr.right
+
+    def isBalanced(self,root) -> bool:
+        def height(root):
+
+            if not root:
+                return 0
+
+            left = height(root.left)
+            right = height(root.right)
+
+            if abs(left-right) > 1 :
+                return -1
+
+            if left == -1 or right == -1:
+                return -1
+
+            return max(left,right) + 1
+
+        return height(root) >= 0
+    
 def main(): 
 
     solution_Ex = Solution()
