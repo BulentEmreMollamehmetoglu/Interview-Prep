@@ -1823,6 +1823,13 @@ class ListNode:
             res.append(curr.val)
             curr = curr.right
         return res[k-1]
+
+    def buildTree(self, preorder: List[int], inorder: List[int]) -> Optional[TreeNode]:
+                def dfs(preorder):   
+                    curr = preorder[0]
+                    rootIndx = inorder.index(curr)
+                    leftSubTree = dfs(inorder[:rootIndx])
+                    rightSubTree = dfs(inorder[rootIndx + 1:])
 def main(): 
 
     solution_Ex = Solution()
