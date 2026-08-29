@@ -1825,11 +1825,26 @@ class ListNode:
         return res[k-1]
 
     def buildTree(self, preorder: List[int], inorder: List[int]) -> Optional[TreeNode]:
-                def dfs(preorder):   
-                    curr = preorder[0]
-                    rootIndx = inorder.index(curr)
-                    leftSubTree = dfs(inorder[:rootIndx])
-                    rightSubTree = dfs(inorder[rootIndx + 1:])
+            positionMap = {key : val for val,key in enumerate(inorder)}
+            def dfs(preorder,preLeft,preRight, inLeft, inRight):
+                if inLeft > inRight:
+                    return None
+                root = preorder[preLeft]
+                rootIndex = positionMap[root]
+
+                leftSize = rootIndex - inLeft
+                
+                leftSubTree = dfs(preorder,preLeft + 1, preLeft + leftSize, inLeft, rootIndex - 1)
+                rightSubTree = dfs(preorder,preLeft + leftSize + 1,preRight,rootIndex + 1,inRight)
+                
+                rootNode = TreeNode(root)
+                
+                rootNode.left = leftSubTree
+                rootNode.right = rightSubTree
+                return rootNode
+            return dfs(preorder,0,len(preorder) - 1,0, len(inorder) - 1)
+
+    
 def main(): 
 
     solution_Ex = Solution()
