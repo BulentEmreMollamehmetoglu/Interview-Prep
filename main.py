@@ -1843,7 +1843,8 @@ class ListNode:
                 rootNode.right = rightSubTree
                 return rootNode
             return dfs(preorder,0,len(preorder) - 1,0, len(inorder) - 1)
-
+        # it took a lot of time to understand it.
+        #
     
 def main(): 
 
