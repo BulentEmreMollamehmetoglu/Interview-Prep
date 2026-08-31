@@ -1844,7 +1844,20 @@ class ListNode:
                 return rootNode
             return dfs(preorder,0,len(preorder) - 1,0, len(inorder) - 1)
         # it took a lot of time to understand it.
-        #
+        
+    def buildTreeAlternative(self, preorder: List[int], inorder: List[int]) -> Optional[TreeNode]:
+        # preorder -> [3,9,20,15,7] inorder -> [9,3,15,20,7]
+            positionMap = {key: val for val,key in enumerate(inorder)}
+            if not preorder or not inorder:
+                return None
+            
+            root = TreeNode(preorder[0])
+            mid = positionMap[root.val]
+            root.left = self.buildTree(preorder[1: mid+1], inorder[:mid])
+            root.right = self.buildTree(preorder[mid+1:], inorder[mid + 1:])
+
+            return root
+
     
 def main(): 
 
