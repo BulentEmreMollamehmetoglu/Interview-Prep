@@ -1858,7 +1858,27 @@ class ListNode:
 
             return root
 
-    
+    def invertBinaryTree(self, root : Optional[TreeNode]) -> Optional[TreeNode]:
+
+        if not root:
+            return
+
+        root.left = self.invertBinaryTree(root.left)
+        root.right = self.invertBinaryTree(root.right)
+
+        root.left, root.right = root.right, root.left
+
+        return root
+
+        # O(n) time and Space O(h) where h is the height of the tree
+        
+    def maximumDepth(self,root: Optional[TreeNode]) -> Optional[TreeNode]:
+        if not root:
+            return 0
+        
+        return max(self.maximumDepth(root.left),self.maximumDepth(root.right)) + 1
+
+        # O(n) time and Space O(h) where h is the height of the tree
 def main(): 
 
     solution_Ex = Solution()
