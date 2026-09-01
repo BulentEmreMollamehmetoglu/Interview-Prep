@@ -1894,6 +1894,7 @@ class ListNode:
             return max(left,right) + 1
         height(root)
         return diameter 
+    # Space O(h) Time O(n)
 def main(): 
 
     solution_Ex = Solution()
