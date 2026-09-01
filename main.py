@@ -1871,7 +1871,7 @@ class ListNode:
         return root
 
         # O(n) time and Space O(h) where h is the height of the tree
-        
+
     def maximumDepth(self,root: Optional[TreeNode]) -> Optional[TreeNode]:
         if not root:
             return 0
@@ -1879,6 +1879,21 @@ class ListNode:
         return max(self.maximumDepth(root.left),self.maximumDepth(root.right)) + 1
 
         # O(n) time and Space O(h) where h is the height of the tree
+
+    def diameterOfBinaryTree(self,root : Optional[TreeNode]) -> int:
+        diameter = 0
+        def height(root):
+            nonlocal diameter
+            if not root:
+                return 0
+
+            left = height(root.left)
+            right = height(root.right)
+
+            diameter = max(diameter,left + right)
+            return max(left,right) + 1
+        height(root)
+        return diameter 
 def main(): 
 
     solution_Ex = Solution()
