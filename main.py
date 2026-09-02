@@ -1944,6 +1944,40 @@ class ListNode:
                     queue.append([level,curr[1].right])
             level += 1
 
+
+    def isSameTreeBfs(self, p: Optional[TreeNode], q: Optional[TreeNode]) -> bool:
+        queueP = deque()
+        queueQ = deque()
+
+        if not p and not q:
+            return True
+
+        if not p or not q:
+            return False
+        if p:
+            queueP.append(p)
+        if q:
+            queueQ.append(q)
+
+        while len(queueP) > 0 and len(queueQ) > 0:
+            currP = queueP.popleft()
+            currQ = queueQ.popleft()
+
+            if currP.val != currQ.val:
+                return False
+            if currP.left and currQ.left:
+                queueP.append(currP.left)
+                queueQ.append(currQ.left)
+            elif currP.left or currQ.left:
+                return False
+
+            if currP.right and currQ.right:
+                queueP.append(currP.right)
+                queueQ.append(currQ.right)
+            elif currP.right or currQ.right:
+                return False
+        return True
+
 class TreeNode :
     def __init__(self,val):
         self.val = val
