@@ -1923,19 +1923,71 @@ class ListNode:
         self.pList = dfs(p, self.pList)
         self.qList = dfs(q, self.qList)
         return self.pList == self.qList
-def main(): 
 
-    solution_Ex = Solution()
+    # Time O(p + q) where p and q are the size of the trees
 
-    print(solution_Ex.fibonacciRecursive(6))
-main()
 
+
+    def bfs(self,root):
+        queue = deque([]) # double ended queue
+        level = 0
+        if root:
+            queue.append([level,root])
+
+
+        while len(queue) > 0 :
+            for i in range(len(queue)):
+                curr = queue.popleft()
+                if curr[1].left:
+                    queue.append([level,curr[1].left])
+                if curr[1].right:
+                    queue.append([level,curr[1].right])
+            level += 1
 
 class TreeNode :
     def __init__(self,val):
         self.val = val
         self.left = None
         self.right = None
+def main():  
+
+    solution_Ex = Solution()
+    ListNodeEx = ListNode()
+    TreeNode1 = TreeNode(4)
+    TreeNode2 = TreeNode(3)
+    TreeNode3 = TreeNode(6)
+    TreeNode4 = TreeNode(2)
+    TreeNode5 = TreeNode(5)
+    TreeNode6 = TreeNode(7)
+
+    TreeNode1.left = TreeNode2
+    TreeNode1.right = TreeNode3
+
+    TreeNode2.left = TreeNode4
+    TreeNode2.right = None
+
+
+    TreeNode3.left = TreeNode5
+    TreeNode3.right = TreeNode6
+    
+    TreeNode4.left = None
+    TreeNode4.right = None
+
+    
+    TreeNode5.left = None
+    TreeNode5.right = None
+
+    TreeNode6.left = None
+    TreeNode6.right = None
+
+    ListNodeEx.bfs(TreeNode1)
+
+
+    #print(solution_Ex.fibonacciRecursive(6))
+main()
+
+
+
 
 class MinStack:
 
