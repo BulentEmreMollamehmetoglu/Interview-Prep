@@ -1470,6 +1470,17 @@ class Solution:
         return curr
 
 
+    
+    def fibonacciRecursive(self,num) -> None:
+        if num <= 0:
+            return 0
+
+        elif num == 1:
+            return 1
+        
+        return self.fibonacciRecursive(num - 1) + self.fibonacciRecursive(num - 2)
+
+        
 
     
 class ListNode:
@@ -1916,18 +1927,7 @@ def main():
 
     solution_Ex = Solution()
 
-
-
-
-
-
-    a = ListNode(3)
-    b = ListNode(7)
-    c = ListNode(2)
-    a.next = b
-    b.next = c
-    head = a
-    curr = head
+    print(solution_Ex.fibonacciRecursive(6))
 main()
 
 
