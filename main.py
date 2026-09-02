@@ -1895,6 +1895,23 @@ class ListNode:
         height(root)
         return diameter 
     # Space O(h) Time O(n)
+
+    def isSameTree(self, p: Optional[TreeNode], q: Optional[TreeNode]) -> bool:
+        self.pList, self.qList = [], []
+
+        def dfs(root,treeList):
+            if not root:
+                treeList.append(None)
+                return
+
+            treeList.append(root.val)
+            dfs(root.left,treeList)
+            dfs(root.right,treeList)
+
+            return treeList
+        self.pList = dfs(p, self.pList)
+        self.qList = dfs(q, self.qList)
+        return self.pList == self.qList
 def main(): 
 
     solution_Ex = Solution()
