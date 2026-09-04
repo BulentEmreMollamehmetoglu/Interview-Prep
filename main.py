@@ -2018,6 +2018,40 @@ class ListNode:
                     queue.append(curr.left) 
         return res
         # O(n) and O(n) -> time and space
+
+
+    def isSubtree(self, root: Optional[TreeNode], subRoot: Optional[TreeNode]) -> bool:
+        self.rootList, self.subRootList = [], []
+        def dfs(root,treeList):
+        
+            if not root:
+                treeList.append(None)
+                return
+
+            treeList.append(root.val)
+            dfs(root.left,treeList)
+            dfs(root.right, treeList)
+            return treeList
+        self.rootList = dfs(root,self.rootList)
+        self.subRootList = dfs(subRoot,self.subRootList)
+
+        print(self.rootList)
+        print(self.subRootList)
+        
+        for i in range(len(self.rootList)):
+            if self.rootList[i] == self.subRootList[0]:
+                
+                matched = True
+                for j in range(len(self.subRootList)):
+                    if self.rootList[i + j] != self.subRootList[j]:
+                        matched = False
+                        break
+
+                if matched:
+                    return True
+      
+
+        return False
 class TreeNode :
     def __init__(self,val):
         self.val = val
