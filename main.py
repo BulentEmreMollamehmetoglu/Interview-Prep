@@ -1997,6 +1997,7 @@ class ListNode:
             res.append(level)
 
         return res
+    # Time and Space complexities O(n) and O(n)
 class TreeNode :
     def __init__(self,val):
         self.val = val
