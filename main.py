@@ -2017,6 +2017,7 @@ class ListNode:
                 if curr.left:
                     queue.append(curr.left) 
         return res
+        # O(n) and O(n) -> time and space
 class TreeNode :
     def __init__(self,val):
         self.val = val
