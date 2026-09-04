@@ -1928,7 +1928,7 @@ class ListNode:
 
 
 
-    def bfs(self,root):
+    def bfs(self,root) -> None:
         queue = deque([]) # double ended queue
         level = 0
         if root:
@@ -1998,6 +1998,25 @@ class ListNode:
 
         return res
     # Time and Space complexities O(n) and O(n)
+
+    def rightSideView(self, root: Optional[TreeNode]) -> List[int]:
+
+        queue = deque()
+        res = []
+
+        if root:
+            queue.append(root)
+
+        while queue:
+            res.append(queue[0].val)
+            for i in range(len(queue)):
+                curr = queue.popleft()
+                if curr.right:
+                    queue.append(curr.right)
+
+                if curr.left:
+                    queue.append(curr.left) 
+        return res
 class TreeNode :
     def __init__(self,val):
         self.val = val
