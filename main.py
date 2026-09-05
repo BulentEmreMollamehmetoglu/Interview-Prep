@@ -2052,6 +2052,20 @@ class ListNode:
       
 
         return False
+
+
+    def lowestCommonAncestor(self, root: TreeNode, p: TreeNode, q: TreeNode) -> TreeNode:
+        curr = root
+        while curr:
+
+            if p.val < curr.val and q.val < curr.val:
+                curr = curr.left
+            
+            elif p.val > curr.val and q.val > curr.val:
+                curr = curr.right
+            
+            else:
+                return curr
 class TreeNode :
     def __init__(self,val):
         self.val = val
