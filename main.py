@@ -2067,6 +2067,46 @@ class ListNode:
             else:
                 return curr
             # Time O(logn) space O(1)
+
+
+    def iterativeDfs(self,root: TreeNode):
+
+        stack = []
+        curr = root
+        while stack or curr:
+            while curr:
+                stack.append(curr)
+                curr = curr.left
+            curr = stack.pop()
+            curr = curr.right
+        # Time and space : O(n)
+
+
+    def iterativeInorderDFS(self,root : TreeNode):
+        stack = []
+        curr = root
+
+        while curr or stack:
+            if curr:
+                stack.append(curr)
+                curr = curr.left
+            else:
+                curr = stack.pop()
+                print(curr.val)
+                curr = curr.right
+
+
+    def iterativePreorderDFS(self,root : TreeNode):
+        stack = []
+        curr = root
+        while curr or stack:
+            if curr:
+                print(curr.val)
+                if curr.right:
+                    stack.append(curr.right)
+                curr = curr.left
+            else:
+                curr = stack.pop()
 class TreeNode :
     def __init__(self,val):
         self.val = val
