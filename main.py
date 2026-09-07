@@ -2107,6 +2107,41 @@ class ListNode:
                 curr = curr.left
             else:
                 curr = stack.pop()
+
+
+    def iterativePreorderDFSSecond(self, root: TreeNode):
+        stack = []
+        curr = root
+
+        while curr or stack:
+            if curr:
+                print(curr.val)
+                if curr.right:
+                    stack.append(curr.right)
+                curr = curr.left   
+            else:
+                curr = stack.pop()
+    # Time and Space : O(n)     
+            
+    def iterativePostorderDFS(self,root: TreeNode):
+        stack = [root]
+        visit = [False]
+
+        while stack:
+            curr , visited = stack.pop(), visit.pop()
+            if curr:
+                if visited:
+                    print(curr.val)
+                else:
+                    stack.append(curr)
+                    visit.append(True)
+                    # right child first to confirm the stack is in the correct order
+                    stack.append(curr.right)
+                    visit.append(False)
+                    stack.append(curr.left)
+                    visit.append(False)
+
+        # Time and Space complexities are O(n)
 class TreeNode :
     def __init__(self,val):
         self.val = val
