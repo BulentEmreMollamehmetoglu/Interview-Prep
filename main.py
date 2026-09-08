@@ -2142,6 +2142,31 @@ class ListNode:
                     visit.append(False)
 
         # Time and Space complexities are O(n)
+
+    def goodNodes(self, root: TreeNode) -> int:
+        maxNodeVal = root.val
+        q = deque()
+        if root:
+            q.append([root,maxNodeVal])
+        count = 1
+        while q:
+            curr = q.popleft()
+            
+            if curr[0].left:
+                maxNodeVal = max(curr[1], curr[0].left.val)
+                if curr[0].left.val >= curr[1]:
+                    
+                    count += 1
+                q.append([curr[0].left, maxNodeVal])
+            
+            if curr[0].right: 
+                maxNodeVal = max(curr[1],curr[0].right.val)    
+                if curr[0].right.val >= curr[1]:
+                    
+                    count += 1
+                q.append([curr[0].right,maxNodeVal])
+            
+        return count
 class TreeNode :
     def __init__(self,val):
         self.val = val
