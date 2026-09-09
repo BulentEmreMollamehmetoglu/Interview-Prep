@@ -2182,6 +2182,21 @@ class ListNode:
             return res
 
         return dfs(root,root.val)
+
+    def isValidBST(self, root: TreeNode) -> bool:
+        def dfs(root,minVal,maxVal):
+            if not root:
+                return True
+
+            if not (minVal < root.val < maxVal):
+                return False
+            left = dfs(root.left,minVal, root.val)
+            right = dfs(root.right,root.val,maxVal)
+
+            return left and right
+        return dfs(root,-1000000000, 1000000000)
+
+    # Time and Space : O(n) O(hs)
 class TreeNode :
     def __init__(self,val):
         self.val = val
