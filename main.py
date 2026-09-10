@@ -2204,7 +2204,39 @@ class TreeNode :
         self.right = None
 
 
+class TrieNode:
+    def __init__(self):
+        self.children = {} # First parameters would be char, and the second parameter would be the node
+        self.word = False # If a word ends at that TrieNode.
+# {"a" : TrieNode(a)}
+class Tries:
+    def __init__(self):
+        self.root = TrieNode()
 
+    def insert(self,word):
+        curr = self.root
+        for c in word:
+            if c not in curr.children:
+                curr.children[c] = TrieNode()
+            curr = curr.children[c]
+        curr.word = True
+    # O(1)
+    def search(self,word):
+        curr = self.root
+        for c in word:
+            if c not in curr.children:
+                return False
+            curr = curr.children[c]
+        return curr.word
+    # O(1)
+    def startsWith(self,prefix): # We got "apple" and we are looking for "ap"
+        curr = self.root
+        for c in prefix:
+            if c not in curr.children:
+                return False
+            curr = curr.children[c]
+        return True
+    # O(1)
 class BSTIterator:
 
     def __init__(self, root: Optional[TreeNode]):
