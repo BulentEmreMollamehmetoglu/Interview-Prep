@@ -2255,7 +2255,7 @@ class WordDictionary:
         curr.word = True
 
     def search(self,word: str) -> bool:
-    
+
         def dfs(node,index) -> bool:
             
             if index == len(word):
@@ -2263,12 +2263,17 @@ class WordDictionary:
 
             if word[index] == ".":
                 for nodes in node.children.values():
-                    if dfs(nodes,index + 1):
+                    if not dfs(nodes,index + 1):
                         return True
+                
                 return False
 
-            else:
-                return dfs(node.children[word[c]], index + 1)
+
+            if word[index] not in node.children:
+                return False
+
+            return dfs(node.children[word[index]], index + 1)
+
         return dfs(self.root,0)
 
 class BSTIterator:
