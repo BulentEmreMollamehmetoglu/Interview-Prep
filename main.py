@@ -2235,8 +2235,42 @@ class Tries:
             if c not in curr.children:
                 return False
             curr = curr.children[c]
+        
         return True
     # O(1)
+
+class WordDictionary:
+
+
+    def __init__(self):
+        self.root = TrieNode()
+
+    def addWord(self,word : str) -> None:
+
+        curr = self.root
+        for c in word:
+            if c not in curr.children:
+                curr.children[c] = TrieNode()
+            curr = curr.children[c]
+        curr.word = True
+
+    def search(self,word: str) -> bool:
+    
+        def dfs(node,index) -> bool:
+            
+            if index == len(word):
+                return node.word
+
+            if word[index] == ".":
+                for nodes in node.children.values():
+                    if dfs(nodes,index + 1):
+                        return True
+                return False
+
+            else:
+                return dfs(node.children[word[c]], index + 1)
+        return dfs(self.root,0)
+
 class BSTIterator:
 
     def __init__(self, root: Optional[TreeNode]):
