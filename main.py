@@ -2275,7 +2275,7 @@ class WordDictionary:
             return dfs(node.children[word[index]], index + 1)
 
         return dfs(self.root,0)
-
+    # Time and space complexities will be added.
 class BSTIterator:
 
     def __init__(self, root: Optional[TreeNode]):
