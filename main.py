@@ -2239,6 +2239,57 @@ class Tries:
         return True
     # O(1)
 
+    def add(self, words):
+        for word in words:
+            curr = self.root
+            for c in word:
+                if c not in curr.children:
+                    curr.children[c] = TrieNode()
+                curr = curr.children[c]
+            curr.word = word
+
+
+
+
+    def findWords(self, board: List[List[str]], words: List[str]) -> List[str]:
+        res = []
+        self.add(words)
+        ROWS, COLS = len(board), len(board[0])
+        directions = [
+            (0,-1), # left
+            (0,1), # right
+            (1,0), # down
+            (-1,0) # up
+        ]
+
+        def search(row,col,node):
+
+            if board[row][col] in node.children:
+                node = node.children[board[row][col]]
+
+                if node.word:
+                    res.append(node.word)
+                    node.word = None
+                    
+                original = board[row][col]
+                board[row][col] = "#"
+
+                for posX,posY in directions:
+                    newRow = row + posX
+                    newCol = col + posY
+                    if (0 <= newRow < ROWS and 0 <= newCol < COLS) and board[newRow][newCol] in node.children: # Valid
+                        search(newRow,newCol,node)
+
+                board[row][col] = original
+
+        for r in range(ROWS):
+            for c in range(COLS):
+                search(r,c,self.root)
+
+
+        return res
+
+        
 class WordDictionary:
 
 
