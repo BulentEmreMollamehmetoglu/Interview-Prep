@@ -2307,6 +2307,39 @@ class Tries:
             nodes[r].next = nodes[l]
             r -= 1
         nodes[r].next = None
+
+
+
+    def reorderList(self, head: Optional[ListNode]) -> None:
+        slow, fast, curr = head, head, head
+        while fast and fast.next:
+            slow = slow.next
+            fast = fast.next.next
+
+        # [1,2,3,4,5]
+        # [1,2,3]
+        # [4,5]
+        prev = None
+        second = slow.next  
+        slow.next = None
+        while second:
+            node = second.next
+            second.next = prev
+            prev = second
+            second = node
+        
+        second = prev
+        # second [5,4]
+        # head [1,2,3]
+        while head and second:
+            headNxt = head.next
+            scndNext = second.next
+
+            head.next = second
+            second.next = headNxt
+
+            head = headNxt
+            second = scndNext
 class WordDictionary:
 
 
