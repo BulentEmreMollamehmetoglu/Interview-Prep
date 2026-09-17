@@ -2376,6 +2376,25 @@ class Tries:
             node = nextSlow
             head = nextHead
         # O(1) space and O(n) time
+
+    def removeNthFromEnd(self, head: Optional[ListNode], n: int) -> Optional[ListNode]:
+        res = []
+        curr = head
+        while curr:
+            res.append(curr.val)
+            curr = curr.next
+ 
+        del res[-n]
+        dummy = ListNode(0)
+        current = dummy
+        # [1,2,4]
+        for val in res:
+            current.next = ListNode(val)
+            current = current.next
+        head = dummy.next 
+    
+        return head
+        
 class WordDictionary:
 
 
