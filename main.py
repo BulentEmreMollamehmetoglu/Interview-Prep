@@ -2394,7 +2394,27 @@ class Tries:
         head = dummy.next 
     
         return head
-        
+
+
+
+    def removeNthFromEnd(self, head: Optional[ListNode], n: int) -> Optional[ListNode]:
+        curr = head
+        length = 0
+        dummy = ListNode(0,head) # dummy -> head [1,2,3]
+        while curr:
+            curr = curr.next
+            length += 1
+
+        curr = dummy
+        frntIndx = length - n # front
+        for _ in range(frntIndx):
+            curr = curr.next
+
+
+        curr.next = curr.next.next
+
+
+        return dummy.next
 class WordDictionary:
 
 
