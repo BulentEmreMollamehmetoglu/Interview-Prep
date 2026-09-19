@@ -2432,6 +2432,90 @@ class Tries:
         left.next = left.next.next
 
         return dummy.next
+
+class LinkedList:
+
+    def __init__(self,val=0,next=None):
+        self.val = val
+        self.next = next
+
+class MyLinkedList:
+
+    def __init__(self):
+        self.linkedList = None
+        self.length = 0
+
+    def get(self, index: int) -> int:
+        head = self.linkedList
+        if not head or 0 <= index >= self.length:
+            return -1
+        while index > 0 and head.next:
+            head = head.next
+            index -= 1
+        return head.val
+
+    def addAtHead(self, val: int) -> None:
+        head = self.linkedList
+        node = LinkedList(val)
+        node.next = head
+        self.linkedList = node
+        self.length += 1
+
+
+    def addAtTail(self, val: int) -> None:
+        head = self.linkedList
+        if not head:
+            self.linkedList = LinkedList(val)
+            self.length += 1
+            return
+        while head and head.next:
+            head = head.next
+        node = LinkedList(val)
+        head.next = node
+        node.next = None
+        self.length += 1
+
+    def addAtIndex(self, index: int, val: int) -> None:
+        head = self.linkedList
+        if index == self.length:
+            self.addAtTail(val)
+            return
+
+        if index < 0 or index > self.length:
+            return
+
+        if index == 0:
+            self.addAtHead(val)
+            return
+
+        while index - 1 > 0 and head:
+            head = head.next
+            index -= 1
+        node = LinkedList(val)
+        temp = head.next
+        head.next = node
+        node.next = temp
+        self.length += 1
+
+
+    def deleteAtIndex(self, index: int) -> None:
+        head = self.linkedList
+
+        if 0 <= index > self.length - 1:
+            return
+        if index == 0 and head:
+            self.linkedList = head.next
+            self.length -= 1
+            return
+
+        while index - 1 > 0 and head:
+            head = head.next
+            index -= 1
+
+        head.next = head.next.next
+        self.length -= 1
+
+        
 class WordDictionary:
 
 
