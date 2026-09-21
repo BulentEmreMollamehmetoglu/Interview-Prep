@@ -2516,6 +2516,36 @@ class MyLinkedList:
         self.length -= 1
 
         # Time and space complexities will be added
+
+class DoubleLinkedList:
+
+    def __init__(self,val,next=None,prev=None):
+        self.val = val
+        self.next = next
+        self.prev = prev
+
+class BrowserHistory:
+
+    def __init__(self, cur: str):
+        self.cur = DoubleLinkedList(cur)
+
+    def visit(self, url: str) -> None:
+
+        self.cur.next = DoubleLinkedList(url,prev=self.cur)
+        self.cur = self.cur.next
+
+    def back(self, steps: int) -> str:
+        while steps > 0 and self.cur.prev:
+            self.cur = self.cur.prev
+            steps -= 1
+        return self.cur.val
+
+    def forward(self, steps: int) -> str:
+        while steps > 0 and self.cur.next:
+            self.cur = self.cur.next
+            steps -= 1
+        return self.cur.val
+        
 class WordDictionary:
 
 
