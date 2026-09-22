@@ -2432,7 +2432,43 @@ class Tries:
         left.next = left.next.next
 
         return dummy.next
+    
+    def pairSum(self, head: Optional[ListNode]) -> int:
+        # [1,2,3,4,5,6]
+        # [1,2,3] [6,5,4]
+        slow, fast = head, head
+        while fast and fast.next:
+            slow = slow.next
+            fast = fast.next.next
 
+        # slow [4,5,6]
+
+
+        # slow.next = None
+        # if node = slow.next -> [1,2,3,4,5,6] -> [1,2,3]
+
+
+        prev = None
+        curr = slow
+        while curr:
+            node = curr.next
+            curr.next = prev
+            prev = curr
+            curr = node
+        curr = prev
+        # curr [6,5,4]
+
+        node = head # [1,2,3]
+        max_val = 0 # 6 + 1 = 7
+        while curr:
+            if node.val + curr.val > max_val:
+                max_val = max(node.val + curr.val, max_val)
+            curr = curr.next
+            node = node.next
+
+        return max_val
+
+        # Time O(n) space O(1)
 class LinkedList:
 
     def __init__(self,val=0,next=None):
@@ -2546,6 +2582,9 @@ class BrowserHistory:
             steps -= 1
         return self.cur.val
         
+
+
+    
 class WordDictionary:
 
 
