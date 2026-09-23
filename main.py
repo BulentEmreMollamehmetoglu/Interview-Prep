@@ -2197,6 +2197,29 @@ class ListNode:
         return dfs(root,-1000000000, 1000000000)
 
     # Time and Space : O(n) O(hs)
+
+
+    def copyRandomList(self, head: 'Optional[Node]') -> 'Optional[Node]':
+        hash_map = {None : None}
+        curr = head
+        while curr:
+            hash_map[curr] = Node(curr.val)
+            curr = curr.next
+        '''
+        A - > A'
+        B - > B'
+        C - > C'
+        '''
+
+        node = head
+        while node:
+            hash_map[node].next = hash_map[node.next]
+            hash_map[node].random = hash_map[node.random]
+
+            node = node.next
+        
+        return hash_map[head]
+        # Time and Space complexities: O(n) and O(n) where n is the number of nodes in the linked list.
 class TreeNode :
     def __init__(self,val):
         self.val = val
