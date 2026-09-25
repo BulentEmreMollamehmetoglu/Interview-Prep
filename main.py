@@ -2220,6 +2220,31 @@ class ListNode:
         
         return hash_map[head]
         # Time and Space complexities: O(n) and O(n) where n is the number of nodes in the linked list.
+
+
+    def addTwoNumbers(self, l1: Optional[ListNode], l2: Optional[ListNode]) -> Optional[ListNode]:
+        head1, head2 = l1, l2
+        carry = 0
+        dummy = ListNode(0)
+        curr = dummy
+        while head1 or head2 or carry > 0:
+            val1 = head1.val if head1 else 0
+            val2 = head2.val if head2 else 0
+
+            total = val1 + val2 + carry # 18
+            carry = total // 10 # 1
+            digit = total % 10 # 8
+
+
+            curr.next = ListNode(digit)
+            curr = curr.next
+            head1 = head1.next if head1 else None
+            head2 = head2.next if head2 else None
+            # 329
+            # 658
+            #  87
+        
+        return dummy.next
 class TreeNode :
     def __init__(self,val):
         self.val = val
