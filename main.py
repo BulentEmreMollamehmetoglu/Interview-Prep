@@ -2245,6 +2245,79 @@ class ListNode:
             #  87
         
         return dummy.next
+
+
+
+    
+class LRUCache:
+
+    def __init__(self, capacity: int):
+        self.capacity = capacity
+        self.hashMap = {} # {key : Node}
+
+        self.head = DoubleLinkedList(0,0)
+        self.tail = DoubleLinkedList(0,0)
+
+        self.head.next = self.tail 
+        self.tail.prev = self.head
+
+        # self.head.next -> LRU
+        # self.tail.prev -> MRU
+    def get(self, key: int) -> int:
+        if key in self.hashMap:
+            node = self.hashMap[key] # [1 -> 2 -> 3 -> 4] there is back arrows too
+
+            node.prev.next = node.next
+            node.next.prev = node.prev
+
+            self.tail.prev.next = node
+            node.prev = self.tail.prev
+
+            node.next = self.tail
+            self.tail.prev = node
+            # assume using 2
+            # LRU -> [1 -> 3 -> 4 -> 2] -> MRU there is back arrows also
+            return node.val
+        return -1
+        
+    def put(self, key: int, value: int) -> None:
+
+        if key in self.hashMap:
+            node = self.hashMap[key]
+            node.val = value
+
+            node.prev.next = node.next
+            node.next.prev = node.prev
+
+            self.tail.prev.next = node
+            node.prev = self.tail.prev
+
+            node.next = self.tail
+            self.tail.prev = node
+            return 
+
+        node = DoubleLinkedList(key,value)
+        self.hashMap[key] = node
+
+        self.tail.prev.next = node
+        node.prev = self.tail.prev
+
+        node.next = self.tail
+        self.tail.prev = node
+
+        node.next = self.tail
+        
+        if len(self.hashMap) > self.capacity:
+            LRU = self.head.next
+
+            self.head.next = LRU.next
+            LRU.next.prev = self.head
+
+            del self.hashMap[LRU.key]
+
+            LRU.next = None
+            LRU.prev = None
+
 class TreeNode :
     def __init__(self,val):
         self.val = val
