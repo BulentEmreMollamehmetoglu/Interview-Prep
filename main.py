@@ -2247,8 +2247,38 @@ class ListNode:
         return dummy.next
 
 
+    def canReachLeaf(self, root : ListNode):
+        if not root or root.val == 0:
+            return False
 
-    
+        if not root.left or not root.right:
+            return True
+
+        if self.canReachLeaf(root.left):
+            return True
+
+        if self.canReachLeaf(root.right):
+            return True
+
+        return False
+
+    def leafPath(self,root : ListNode, path : list[ListNode]):
+
+        if not root or root.val == 0:
+            return False
+        path.append(root)
+
+        if not root.left or not root.right:
+            return True
+
+        if self.leafPath(root.left, path):
+            return True
+        
+        if self.leafPath(root.right, path):
+            return True
+
+        path.pop()
+        return False    
 class LRUCache:
 
     def __init__(self, capacity: int):
