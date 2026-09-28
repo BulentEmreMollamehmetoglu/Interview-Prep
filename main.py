@@ -2251,7 +2251,7 @@ class ListNode:
         if not root or root.val == 0:
             return False
 
-        if not root.left or not root.right:
+        if not root.left and not root.right:
             return True
 
         if self.canReachLeaf(root.left):
@@ -2268,7 +2268,7 @@ class ListNode:
             return False
         path.append(root)
 
-        if not root.left or not root.right:
+        if not root.left and not root.right:
             return True
 
         if self.leafPath(root.left, path):
@@ -2280,7 +2280,32 @@ class ListNode:
         path.pop()
         return False    
 
-    # Time and space complexities : O(n) where n is the size of the tree. Space : O(n) 
+    # Time and space complexities : O(n) where n is the size of the tree. Space : O(n)
+
+
+    def hasPathSum(self, root: Optional[TreeNode], targetSum: int) -> bool:
+
+        def dfs(root, target):
+
+            if not root:
+                return False
+            
+            target += root.val
+
+            if not root.left and not root.right:
+                if target == targetSum:
+                    return True
+                return False
+
+            if dfs(root.left,target):
+                return True
+
+            if dfs(root.right,target):
+                return True
+
+            return False
+            
+        return dfs(root,0)
 class LRUCache:
 
     def __init__(self, capacity: int):
