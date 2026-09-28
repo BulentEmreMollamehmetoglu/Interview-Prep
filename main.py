@@ -2279,6 +2279,8 @@ class ListNode:
 
         path.pop()
         return False    
+
+    # Time and space complexities : O(n) where n is the size of the tree. Space : O(n) 
 class LRUCache:
 
     def __init__(self, capacity: int):
