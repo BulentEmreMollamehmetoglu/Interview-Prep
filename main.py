@@ -2374,7 +2374,23 @@ class LRUCache:
 
             LRU.next = None
             LRU.prev = None
+            
+    def subsets(self, nums: List[int]) -> List[List[int]]:
+        res = []
+        curr = []
 
+        def dfs(nums,indx):
+
+            res.append(curr.copy())
+
+            for i in range(indx,len(nums)):
+                curr.append(nums[i])
+                print(curr)
+                dfs(nums,i + 1)
+                curr.pop()
+
+        dfs(nums,0)
+        return res
 class TreeNode :
     def __init__(self,val):
         self.val = val
