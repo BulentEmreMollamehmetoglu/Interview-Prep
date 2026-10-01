@@ -2374,7 +2374,7 @@ class LRUCache:
 
             LRU.next = None
             LRU.prev = None
-            
+               
     def subsets(self, nums: List[int]) -> List[List[int]]:
         res = []
         curr = []
@@ -2391,6 +2391,32 @@ class LRUCache:
 
         dfs(nums,0)
         return res
+
+
+    def combinationSum(self, nums: List[int], target: int) -> List[List[int]]:
+        res = []
+        curr = []
+
+        def dfs(index):
+
+            if index >= len(nums):
+                if sum(curr) == target:
+                    res.append(curr.copy())
+                    return
+                return
+
+            if sum(curr) > target:
+                return
+
+            curr.append(nums[index])
+            dfs(index)
+
+            curr.pop()
+            dfs(index + 1)
+
+        dfs(0)
+        return res
+    # Time and Space : 2^t where t is the target value. Space: O(n) where n is the size of the res.
 class TreeNode :
     def __init__(self,val):
         self.val = val
