@@ -2417,6 +2417,32 @@ class LRUCache:
         dfs(0)
         return res
     # Time and Space : 2^t where t is the target value. Space: O(n) where n is the size of the res.
+
+
+    def combinationSum2(self, candidates: List[int], target: int) -> List[List[int]]:
+        res = []
+        curr = []
+        candidates = sorted(candidates)
+        print(candidates)
+        def dfs(indx):
+            
+            if target == sum(curr):
+                res.append(curr.copy())
+                return
+
+            if sum(curr) > target:
+                return
+
+            for i in range(indx, len(candidates)):
+                if i > indx and candidates[i] == candidates[i - 1]:
+                    continue
+                curr.append(candidates[i])
+                dfs(i + 1)
+                curr.pop()
+
+        dfs(0)
+        return res
+
 class TreeNode :
     def __init__(self,val):
         self.val = val
