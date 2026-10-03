@@ -2463,6 +2463,26 @@ class LRUCache:
             dfs(indx + 1)
         dfs(0)
         return res
+
+    def subsetsWithDupForLoop(self, nums: List[int]) -> List[List[int]]:
+        res = []
+        curr = []
+        nums = sorted(nums) # n logn
+
+        def dfs(indx):
+
+            res.append(curr.copy())
+
+            for i in range(indx,len(nums)):
+                if i > indx and nums[i] == nums[i - 1]:
+                    continue
+                curr.append(nums[i])
+                dfs(i + 1)
+                curr.pop()
+
+        dfs(0)
+        return res
+
 class TreeNode :
     def __init__(self,val):
         self.val = val
