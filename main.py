@@ -2463,7 +2463,7 @@ class LRUCache:
             dfs(indx + 1)
         dfs(0)
         return res
-
+    # Time : O(n * 2^n) Space: O(n)
     def subsetsWithDupForLoop(self, nums: List[int]) -> List[List[int]]:
         res = []
         curr = []
