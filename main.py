@@ -2525,6 +2525,26 @@ class LRUCache:
 
         dfs(i,[],n,k)
         return res
+        #Time : O(k * 2^n)
+    def combinations2(self,n,k):
+        combs = []
+        self.helper2(1,[],combs,n,k)
+        return combs
+
+    def helper2(self,i,curComb,combs,n,k):
+
+        if(len(curComb)) == k:
+            combs.append(curComb.copy())
+            return
+
+        if i > n :
+            return
+
+        for j in range(i, n+1):
+            curComb.append(j)
+            self.helper2(j+1, curComb,combs,n,k)
+            curComb.pop()
+        # Time : O(k * C(n,k))
 class TreeNode :
     def __init__(self,val):
         self.val = val
