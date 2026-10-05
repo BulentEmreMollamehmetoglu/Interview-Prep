@@ -2545,6 +2545,29 @@ class LRUCache:
             self.helper2(j+1, curComb,combs,n,k)
             curComb.pop()
         # Time : O(k * C(n,k))
+
+    
+    def combine(self, n: int, k: int) -> List[List[int]]:
+        res = []
+        curr = []
+
+        def dfs(indx, n,k):
+
+            if len(curr) == k:
+                res.append(curr.copy())
+                return
+            
+            if indx > n:
+                return
+
+            curr.append(indx)
+            dfs(indx + 1,n, k)
+
+            curr.pop()
+            dfs(indx + 1,n ,k)
+
+        dfs(1,n,k)
+        return res
 class TreeNode :
     def __init__(self,val):
         self.val = val
