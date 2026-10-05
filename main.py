@@ -2503,6 +2503,28 @@ class LRUCache:
             dfs(indx + 1)
         dfs(0)
         return res
+
+    def combinations(self, n, k):
+
+        res = []
+        def dfs(indx,curr,n,k):
+            
+            if len(curr) == k:
+                res.append(curr.copy())
+                return
+
+            if indx > n:
+                return
+
+            curr.append(i)
+            dfs(indx + 1,n,k)
+
+            curr.pop()
+            dfs(indx + 1,n,k)
+
+
+        dfs(i,[],n,k)
+        return res
 class TreeNode :
     def __init__(self,val):
         self.val = val
