@@ -2568,6 +2568,28 @@ class LRUCache:
 
         dfs(1,n,k)
         return res
+
+    def letterCombinations(self, digits: str) -> List[str]:
+        hashMap = {"2" : "abc" , "3" : "def" , "4" : "ghi" ,
+        "5" : "jkl" , "6" : "mno" , "7" : "pqrs" , "8" : "tuv" , "9" : "wxyz"}
+
+        res = []
+        curr = []
+        if digits == "":
+            return []
+        def backtracking(indx):
+            
+            if indx >= len(digits):
+                res.append("".join(curr.copy()))
+                return
+
+            for letter in hashMap[digits[indx]]:
+                curr.append(letter)
+                backtracking(indx + 1)
+                curr.pop()
+
+        backtracking(0)        
+        return res
 class TreeNode :
     def __init__(self,val):
         self.val = val
