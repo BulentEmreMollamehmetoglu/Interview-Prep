@@ -2665,6 +2665,8 @@ class LRUCache:
                     pCopy = p.copy()
                     pCopy.insert(j,n)
                     newPerms.append(pCopy)
+                    if j < len(p) and n == nums[j]:
+                        break
             perms = newPerms
         return perms
 class TreeNode :
