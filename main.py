@@ -2654,6 +2654,19 @@ class LRUCache:
             return resPerm
 
         return helper(0,nums)
+
+    def permuteIterative(self,nums: List[int]) -> List[List[int]]:
+        perms = [[]]
+
+        for n in nums:
+            newPerms = []
+            for p in perms:
+                for j in range(len(p) + 1):
+                    pCopy = p.copy()
+                    pCopy.insert(j,n)
+                    newPerms.append(pCopy)
+            perms = newPerms
+        return perms
 class TreeNode :
     def __init__(self,val):
         self.val = val
