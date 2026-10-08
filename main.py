@@ -2619,7 +2619,41 @@ class LRUCache:
                     pCopy.insert(i,n)
                     nextPerms.append(pCopy)
             perms = nextPerms
-        return perms                    
+        return perms  
+
+
+    def permutationRecursive2(self,nums):
+        def helper(i,nums):
+            if i == len(nums):
+                return [[]]
+            
+            resPerms = []
+            perms = helper(i + 1,nums)
+            for p in perms:
+                for j in range(len(p) + 1):
+                    pCopy = p.copy()
+                    pCopy.insert(j, nums[i])
+                    resPerms.append(pCopy)
+
+            return resPerms
+        return helper(0,nums)
+
+    def permute(self, nums: List[int]) -> List[List[int]]:
+        def helper(i,nums):
+
+            if i == len(nums):
+                return [[]]
+
+            resPerm = []
+            perms = helper(i + 1, nums)
+            for p in perms:
+                for j in range(len(p) + 1):
+                    pCopy = p.copy()
+                    pCopy.insert(j,nums[i])
+                    resPerm.append(pCopy)
+            return resPerm
+
+        return helper(0,nums)
 class TreeNode :
     def __init__(self,val):
         self.val = val
