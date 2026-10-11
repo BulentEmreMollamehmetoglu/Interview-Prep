@@ -2706,6 +2706,23 @@ class LRUCache:
                     dfs(row,col) # starting point
         
         return word in res
+
+    def partition(self, s: str) -> List[List[str]]:
+        res, curr = [] , []
+        def dfs(indx):
+
+            if indx == len(s):
+                res.append(curr.copy())
+                return
+
+            for end in range(indx + 1, len(s) + 1):
+                substring = s[indx:end]
+                if substring == substring[::-1]:
+                    curr.append(substring)
+                    dfs(end)
+                    curr.pop()
+        dfs(0)
+        return res
 class TreeNode :
     def __init__(self,val):
         self.val = val
