@@ -2669,6 +2669,43 @@ class LRUCache:
                         break
             perms = newPerms
         return perms
+
+    def exist(self, board: List[List[str]], word: str) -> bool:
+        ROWS, COLS = len(board), len(board[0])
+        res, curr = [], []
+
+        def dfs(ix,iy):
+            temp = board[ix][iy]
+            neighbors = [
+            (1,0),
+            (-1,0),
+            (0,1),
+            (0,-1)
+            ]
+            curr.append(board[ix][iy])
+
+            if len(curr) == len(word):
+                res.append("".join(curr))
+                curr.pop()
+                return
+            
+            board[ix][iy] = "#"
+            for neighbor in neighbors:
+                nx = ix + neighbor[0]
+                ny = iy + neighbor[1]
+                if (0 <= nx < ROWS and 0 <= ny < COLS) and board[nx][ny] != "#" and word[len(curr)] == board[nx][ny] : 
+                    dfs(ix + neighbor[0],iy + neighbor[1])
+
+            board[ix][iy] = temp
+            curr.pop()
+
+
+        for row in range(ROWS):
+            for col in range(COLS):
+                if board[row][col] == word[0]: # match
+                    dfs(row,col) # starting point
+        
+        return word in res
 class TreeNode :
     def __init__(self,val):
         self.val = val
