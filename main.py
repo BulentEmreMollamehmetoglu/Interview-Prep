@@ -2728,6 +2728,9 @@ class LRUCache:
 class Heap:
     # The structure -> binary tree, completely filled with nodes left to right
     # The order -> min heap -> the smallest root, max heap -> the larget root
+    # left -> 2 * i
+    # right -> (2 * i) + 1
+    # parent -> i // 2
     def __init__(self):
         self.heap = [0] # dummy
 
@@ -2743,6 +2746,101 @@ class Heap:
             self.heap[i // 2] = tmp
             i = i // 2
 
+    def pop(self):
+        if len(self.heap) == 1: # just dummy
+            return None
+
+        if len(self.heap) == 2: # dummy + root
+            return self.heap.pop()
+    
+        res = self.heap[1] # root
+        self.heap[1] = self.heap.pop()
+        i = 1 # pointer points to the root
+        # percolate down
+        while 2 * i < len(self.heap): # we do have a left child
+            if (2 * i + 1 < len(self.heap) and
+                self.heap[2 * i + 1] < self.heap[2 * i] and
+                self.heap[i] > self.heap[2 * i + 1]):
+                # swap right child
+                tmp = self.heap[i]
+                self.heap[i] = self.heap[2 * i + 1]
+                self.heap[2 * i + 1] = tmp
+                i = 2 * i + 1 # pointer points to the last point 
+            elif self.heap[i] > self.heap[2 * i]:
+                # swap left child
+                tmp = self.heap[i]
+                self.heap[i] = self.heap[2 * i]
+                self.heap[2 * i] = tmp
+                i = 2 * i
+            else:
+                break
+        return res
+
+class KthLargest:
+
+    def __init__(self, k: int, nums: List[int]):
+        self.heap = [0] # dummy
+        self.length = k
+        self.createHeap(nums) 
+        # left -> 2 * i
+        # right -> 2 * i + 1
+        # parent -> i // 2
+
+    def createHeap(self,nums : List[int]):
+        for num in nums:
+            self.add(num)
+
+    def pop(self):
+        if len(self.heap) == 1:
+            return -1
+        
+        if len(self.heap) == 2:
+            return self.heap.pop()
+        
+        res = self.heap[1]
+        self.heap[1] = self.heap.pop() # last val
+        i = 1 # root
+
+        while 2 * i < len(self.heap):
+
+            if (2 * i + 1 < len(self.heap) and
+            self.heap[2 * i + 1] < self.heap[2 * i] and
+            self.heap[i] > self.heap[2 * i + 1]):
+
+                tmp = self.heap[i]
+                self.heap[i] = self.heap[2 * i + 1]
+                self.heap[2 * i + 1] = tmp
+                i = 2 * i + 1
+            
+            elif self.heap[i] > self.heap[2 * i]:
+
+                tmp = self.heap[i]
+                self.heap[i] = self.heap[2 * i]
+                self.heap[2 * i] = tmp
+                i = 2 * i
+
+            else:
+                break
+
+        return res
+
+    def add(self, val: int) -> int:
+
+        
+        self.heap.append(val)
+
+        i = len(self.heap) - 1 # last val
+        while i > 1 and (self.heap[i] < self.heap[i // 2]):
+            # swap
+            tmp = self.heap[i]
+            self.heap[i] = self.heap[i // 2]
+            self.heap[i // 2] = tmp
+            i = i // 2
+
+        while len(self.heap) - 1 > self.length:
+            self.pop()
+
+        return self.heap[1]
 class TreeNode :
     def __init__(self,val):
         self.val = val
