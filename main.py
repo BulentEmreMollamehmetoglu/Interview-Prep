@@ -2724,6 +2724,25 @@ class LRUCache:
         dfs(0)
         return res
         # Time and Space : O(n^2 x 2^n) , O(n)
+
+class Heap:
+    # The structure -> binary tree, completely filled with nodes left to right
+    # The order -> min heap -> the smallest root, max heap -> the larget root
+    def __init__(self):
+        self.heap = [0] # dummy
+
+    def push(self,val): # Time -> O(logn) where n is the size of the elements in the heap
+        self.heap.append(val)
+        i = len(self.heap) - 1
+
+        # Percolate up
+
+        while self.heap[i] < self.heap[i // 2]:
+            tmp = self.heap[i]
+            self.heap[i] = self.heap[i // 2]
+            self.heap[i // 2] = tmp
+            i = i // 2
+
 class TreeNode :
     def __init__(self,val):
         self.val = val
