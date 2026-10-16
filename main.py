@@ -2725,6 +2725,43 @@ class LRUCache:
         return res
         # Time and Space : O(n^2 x 2^n) , O(n)
 
+def heapify(self,arr):
+    # Heaps are basically binary tree with
+    # order and structure properties.
+    # First and the most important advantage is min/max are O(1) operations. 
+    # (Note: In BSTs(Binary Search Trees) you have to do the same operation in O(logn) time.)
+    # 0-th position is moved to the end
+    arr.append(arr[0])
+
+    self.heap = arr
+    cur = len(self.heap) - 1 // 2 # mid point
+    while cur > 0:
+        # percolate down
+        i = cur
+        while 2 * i < len(self.heap):
+
+            if self.heap[2 * i + 1] < len(self.heap) and self.heap[2 * i + 1] < self.heap[2 * i] and self.heap[i] > self.heap[2 * i + 1]:
+                # right side
+                tmp = self.heap[i]
+                self.heap[i] = self.heap[2 * i + 1]
+                self.heap[2 * i + 1] = tmp
+                i = 2 * i + 1
+
+            elif self.heap[i] > self.heap[2 * i]:
+                tmp = self.heap[i]
+                self.heap[i] = self.heap[2 * i]
+                self.heap[2 * i] = tmp
+                i = 2 * i
+
+            else:
+                break
+        cur -= 1
+    
+
+
+
+
+
 class Heap:
     # The structure -> binary tree, completely filled with nodes left to right
     # The order -> min heap -> the smallest root, max heap -> the larget root
@@ -2776,6 +2813,66 @@ class Heap:
                 break
         return res
     # Push -> O(logn) Pop -> O(logn)
+
+class LastStoneWeight:
+
+    def __init__(self):
+        self.heap = [0] # dummy
+        # [0] + stones
+
+    def createHeap(self, nums: List[int]):
+        for num in nums:
+            self.add(num)
+
+    def add(self, val : int):
+        self.heap.append(val)
+        i = len(self.heap) - 1
+
+        while i > 1 and self.heap[i] > self.heap[i // 2]: # protect the dummy index
+            self.heap[i],self.heap[i // 2] = self.heap[i // 2], self.heap[i]
+            i = i // 2
+
+    def pop(self):
+        if len(self.heap) == 1: 
+            return None
+        
+        if len(self.heap) == 2:
+            return self.heap.pop()
+
+        res = self.heap[1] # root aka -> Max
+        self.heap[1] = self.heap.pop() # take the last value and put in the index
+        i = 1 # start at root
+        while 2 * i < len(self.heap): # if we have left
+
+            if(2 * i + 1) < len(self.heap) and self.heap[2 * i + 1] > self.heap[i] and self.heap[2 * i + 1] > self.heap[2 * i]:
+                self.heap[i], self.heap[2 * i + 1] = self.heap[2 * i + 1], self.heap[i]
+                i = 2 * i + 1
+
+            elif self.heap[2 * i] > self.heap[i]:
+                self.heap[i] , self.heap[2 * i] = self.heap[2 * i], self.heap[i]
+                i = 2 * i
+
+            else:
+                break
+
+        return res
+
+    def lastStoneWeight(self, stones: List[int]) -> int:
+        self.createHeap(stones)
+        #print(self.heap) # [0, 6, 4, 3, 2, 2]
+        twoVal = []
+
+        while len(self.heap) - 1 >= 2:
+            first = self.pop()
+            second = self.pop()
+            diff = first - second
+            if diff > 0:
+                self.add(diff)
+
+        return 0 if len(self.heap) == 1 else self.heap[1]
+                    
+
+
 class KthLargest:
 
     def __init__(self, k: int, nums: List[int]):
