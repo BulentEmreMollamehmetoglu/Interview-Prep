@@ -2870,7 +2870,72 @@ class LastStoneWeight:
                 self.add(diff)
 
         return 0 if len(self.heap) == 1 else self.heap[1]
-                    
+
+class HeapifySolution:
+
+    def add(self,heap,val):
+        heap.append(val)
+        i = len(self.heap) - 1
+
+        while i > 1 and heap[i] > heap[i // 2]:
+            heap[i] , heap[i // 2] = heap[i // 2], heap[i]
+            i = i // 2
+        
+
+    def pop(self):
+        if len(self.heap) == 1: 
+            return None
+        
+        if len(self.heap) == 2:
+            return self.heap.pop()
+
+        res = self.heap[1] # root aka -> Max
+        self.heap[1] = self.heap.pop() # take the last value and put in the index
+        i = 1 # start at root
+        while 2 * i < len(self.heap): # if we have left
+
+            if(2 * i + 1) < len(self.heap) and self.heap[2 * i + 1] > self.heap[i] and self.heap[2 * i + 1] > self.heap[2 * i]:
+                self.heap[i], self.heap[2 * i + 1] = self.heap[2 * i + 1], self.heap[i]
+                i = 2 * i + 1
+
+            elif self.heap[2 * i] > self.heap[i]:
+                self.heap[i] , self.heap[2 * i] = self.heap[2 * i], self.heap[i]
+                i = 2 * i
+
+            else:
+                break
+
+        return res
+
+    def lastStoneWeight(self, stones: List[int]) -> int:
+        self.heap = [0] + stones # moved the first element to the end
+        cur = (len(self.heap) - 1) // 2
+        while cur > 0:
+            i = cur
+            while 2 * i < len(self.heap): # if we have left
+
+                if(2 * i + 1) < len(self.heap) and self.heap[2 * i + 1] > self.heap[i] and self.heap[2 * i + 1] > self.heap[2 * i]:
+                    self.heap[i], self.heap[2 * i + 1] = self.heap[2 * i + 1], self.heap[i]
+                    i = 2 * i + 1
+
+                elif self.heap[2 * i] > self.heap[i]:
+                    self.heap[i] , self.heap[2 * i] = self.heap[2 * i], self.heap[i]
+                    i = 2 * i
+
+                else:
+                    break
+
+            cur -= 1
+
+        while len(self.heap) > 2:
+            first = self.pop()
+            second = self.pop()
+            diff = first - second
+            if diff > 0:
+                self.add(self.heap,diff)
+        return 0 if len(self.heap) == 1 else self.heap[1]
+                        
+          
 
 
 class KthLargest:
