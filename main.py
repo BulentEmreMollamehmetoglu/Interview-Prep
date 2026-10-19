@@ -2940,6 +2940,116 @@ from collections import defaultdict
 class Solution:
 
     def __init__(self):
+        self.heap = [()] # dummy
+
+    def add(self,val):
+        self.heap.append(val)
+        i = len(self.heap) - 1
+
+        while i > 1 and self.heap[i] < self.heap[i // 2]:
+            self.heap[i] , self.heap[i // 2] = self.heap[i // 2], self.heap[i]
+            i = i // 2
+
+    def pop(self):
+        
+        if len(self.heap) == 1:
+            return
+
+        if len(self.heap) == 2:
+            return self.heap.pop()
+            
+        res = self.heap[1] # root
+        self.heap[1] = self.heap.pop()
+        i  = 1 # point
+
+        while 2 * i < len(self.heap):
+
+            if 2 * i + 1 < len(self.heap) and self.heap[2 * i + 1] < self.heap[i] and self.heap[2 * i + 1] < self.heap[2 * i]:
+                self.heap[2 * i + 1], self.heap[i] = self.heap[i], self.heap[2 * i + 1]
+                i = 2 * i + 1
+
+            elif self.heap[2 * i] < self.heap[i]:
+                self.heap[i] , self.heap[2 * i] = self.heap[2 * i] , self.heap[i]
+                i = 2 * i 
+
+            else:
+                break
+        return res
+
+    def kClosest(self, points: List[List[int]], k: int) -> List[List[int]]:
+        distances = defaultdict(list) # { 4 : [0,2], [2,0], 8: [2,2]}
+        res = []
+        for x,y in points:
+            distance = x*x + y*y # 0, (4,0,2) , (4,2,0) , (8,2,2)
+            distances[distance].append([x,y])
+            self.add(distance)
+
+        for _ in range(k):
+            distance = self.pop()
+            point = distances[distance].pop()
+            res.append(point)
+        return res
+
+    # hashmap
+
+
+from collections import defaultdict
+class Solution:
+
+    def __init__(self):
+        self.heap = [()] # dummy
+
+    def add(self,val):
+        self.heap.append(val)
+        i = len(self.heap) - 1
+
+        while i > 1 and self.heap[i] < self.heap[i // 2]:
+            self.heap[i] , self.heap[i // 2] = self.heap[i // 2], self.heap[i]
+            i = i // 2
+
+    def pop(self):
+        
+        if len(self.heap) == 1:
+            return
+
+        if len(self.heap) == 2:
+            return self.heap.pop()
+            
+        res = self.heap[1] # root
+        self.heap[1] = self.heap.pop()
+        i  = 1 # point
+
+        while 2 * i < len(self.heap):
+
+            if 2 * i + 1 < len(self.heap) and self.heap[2 * i + 1] < self.heap[i] and self.heap[2 * i + 1] < self.heap[2 * i]:
+                self.heap[2 * i + 1], self.heap[i] = self.heap[i], self.heap[2 * i + 1]
+                i = 2 * i + 1
+
+            elif self.heap[2 * i] < self.heap[i]:
+                self.heap[i] , self.heap[2 * i] = self.heap[2 * i] , self.heap[i]
+                i = 2 * i 
+
+            else:
+                break
+        return res
+
+    def kClosest(self, points: List[List[int]], k: int) -> List[List[int]]:
+        res = []
+        for x,y in points:
+            distance = x*x + y*y # 0, (4,0,2) , (4,2,0) , (8,2,2)
+            self.add((distance,x,y))
+
+        for _ in range(k):
+            distance,x,y = self.pop()
+            res.append([x,y])
+
+        return res
+    # without hashmap
+
+from collections import defaultdict
+class Solution:
+
+    def __init__(self):
         self.heap = [0] # dummy
 
     def add(self,val):
