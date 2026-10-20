@@ -3108,6 +3108,54 @@ class Solution:
         return res 
 
 
+class Solution:
+
+    def __init__(self):
+        self.heap = [-1001]
+
+    def add(self,val):
+        self.heap.append(val)
+        i = len(self.heap) - 1
+
+        while i > 1 and self.heap[i] > self.heap[i // 2]:
+            self.heap[i] , self.heap[i // 2] = self.heap[i // 2], self.heap[i]
+            i = i // 2
+
+    
+    def pop(self):
+        if len(self.heap) == 1:
+            return
+        if len(self.heap) == 2:
+            return self.heap.pop()
+
+        res = self.heap[1] # max res
+        self.heap[1] = self.heap.pop()
+        i = 1
+
+        while 2 * i < len(self.heap):
+
+            if 2 * i + 1 < len(self.heap) and self.heap[2 * i + 1] > self.heap[2 * i] and self.heap[i] < self.heap[2 * i +1]:
+                self.heap[i], self.heap[2 * i + 1] = self.heap[2 * i + 1], self.heap[i]
+                i = 2 * i + 1
+
+            elif self.heap[i] < self.heap[2 * i]:
+                self.heap[i] , self.heap[2 * i] = self.heap[2 * i], self.heap[i]
+                i = 2 * i
+
+            else:
+                break
+
+        return res
+
+    def findKthLargest(self, nums: List[int], k: int) -> int:  
+        for num in nums:
+            self.add(num)
+        res = -1001
+
+        for _ in range(k):
+            res = self.pop()
+        
+        return res
 class KthLargest:
 
     def __init__(self, k: int, nums: List[int]):
