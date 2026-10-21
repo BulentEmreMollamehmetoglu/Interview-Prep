@@ -2937,7 +2937,7 @@ class HeapifySolution:
                         
 
 from collections import defaultdict
-class Solution:
+class KClosestFirst:
 
     def __init__(self):
         self.heap = [()] # dummy
@@ -2994,7 +2994,7 @@ class Solution:
 
 
 from collections import defaultdict
-class Solution:
+class KClosestSecond:
 
     def __init__(self):
         self.heap = [()] # dummy
@@ -3047,7 +3047,7 @@ class Solution:
     # without hashmap
 
 from collections import defaultdict
-class Solution:
+class KClosest:
 
     def __init__(self):
         self.heap = [0] # dummy
@@ -3108,7 +3108,7 @@ class Solution:
         return res 
 
 
-class Solution:
+class KthLargest:
 
     def __init__(self):
         self.heap = [-1001]
@@ -3156,6 +3156,79 @@ class Solution:
             res = self.pop()
         
         return res
+    # time and space : O(n logn) and O(n)
+
+
+class LeastInterval:
+
+    def __init__(self):
+        self.heap = [()] # dummy
+
+    def add(self,val):
+        self.heap.append(val)
+        i = len(self.heap) - 1
+
+        while i > 1 and self.heap[i] > self.heap[i // 2]:
+            self.heap[i], self.heap[i // 2] = self.heap[i // 2], self.heap[i]
+            i = i // 2
+    
+    def pop(self):
+        if len(self.heap) == 1:
+            return
+
+        if len(self.heap) == 2:
+            return self.heap.pop()
+
+        res = self.heap[1]
+        self.heap[1] = self.heap.pop()
+        i = 1 # root index
+        while 2 * i < len(self.heap):
+            if 2 * i + 1 < len(self.heap) and self.heap[2 * i + 1] > self.heap[2 * i] and self.heap[2 * i + 1] > self.heap[i]:
+                self.heap[i], self.heap[2 * i + 1] = self.heap[2 * i + 1], self.heap[i]
+                i = 2 * i + 1
+            elif self.heap[2 * i] > self.heap[i]:
+                self.heap[i], self.heap[2 * i] = self.heap[2 * i], self.heap[i]
+                i = 2 * i
+            else:
+                break
+        return res
+
+    def leastInterval(self, tasks: List[str], n: int) -> int:
+        counter = 0
+
+        # round -> n + 1
+        # X -> Y -> IDLE
+        # X -> Y
+        freq = {}
+        for task in tasks:
+            freq[task] = freq.get(task,0) + 1
+        # {'X': 2, 'Y': 2}
+        for k,v in freq.items():
+            self.add((v,k))
+        # [(), (3, 'A'), (1, 'B'), (1, 'C')]
+        while len(self.heap) > 1:
+            temp = []
+            slots = n + 1
+            executed = 0
+            for _ in range(slots):
+                if len(self.heap) == 1:
+                    break
+                count,task = self.pop()
+                executed += 1
+                count -= 1
+                if count > 0:
+                    temp.append((count,task)) # temp = [(2, 'A')]
+
+                counter += 1
+            
+            for count,task in temp:
+                self.add((count,task))
+
+            if len(self.heap) > 1:
+                counter += slots - executed
+                
+        return counter
+
 class KthLargest:
 
     def __init__(self, k: int, nums: List[int]):
