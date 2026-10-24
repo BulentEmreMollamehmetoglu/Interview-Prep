@@ -2761,6 +2761,93 @@ def heapify(self,arr):
 
 
 
+from collections import defaultdict 
+class Twitter:
+
+    def __init__(self):
+        self.hashMap = {} # {userId : [(tweetOrder,tweetId)]}
+        self.followees = defaultdict(set) # {follower : {followee}} # set
+        self.tweetOrder = 0
+
+        
+    def add(self, heap, val):
+        heap.append(val)
+
+        i = len(heap) - 1
+
+        while i > 1 and heap[i] > heap[i // 2]:
+            heap[i], heap[i // 2] = heap[i // 2], heap[i]
+            i = i // 2
+
+    def pop(self,heap):
+        if len(heap) == 1:
+            return
+        
+        if len(heap) == 2:
+            return heap.pop()
+
+        res = heap[1] # return root -> max
+        heap[1] = heap.pop()
+        i = 1
+        
+        while 2 * i < len(heap):
+
+            if 2 * i + 1 < len(heap) and heap[2 * i + 1] > heap[2 * i] and heap[i] < heap[2 * i + 1]:
+                heap[i], heap[2 * i + 1] = heap[2 * i + 1], heap[i]
+                i = 2 * i + 1
+
+            elif heap[i] < heap[2 * i]:
+                heap[i], heap[2 * i] = heap[2 * i], heap[i]
+                i = 2 * i
+
+            else:
+                break
+
+        return res
+
+    def postTweet(self, userId: int, tweetId: int) -> None:
+        if userId in self.hashMap.keys():
+            userHeap = self.hashMap[userId]
+        else:
+            self.hashMap[userId] = [0] # start with dummy
+            userHeap = self.hashMap[userId]
+        self.add(userHeap,(self.tweetOrder,tweetId))
+        self.tweetOrder += 1
+        # append to the max heap
+
+    def getNewsFeed(self, userId: int) -> List[int]:
+        numOfTweets = 10
+        res = []
+        tempHeap = [()]
+        for tweet in self.hashMap.get(userId,[])[1:]:
+            self.add(tempHeap,tweet)
+
+        for followeeId in self.followees.get(userId,set()):
+            for tweet in self.hashMap.get(followeeId,[])[1:]:
+                self.add(tempHeap,tweet)
+
+
+        k = min(10, len(tempHeap) - 1)
+        for _ in range(k):
+            tweetOrder, tweetId = self.pop(tempHeap)
+            res.append(tweetId)
+
+        return res
+        
+
+
+    def follow(self, followerId: int, followeeId: int) -> None:
+        if self.followees.get(followerId,set()):
+            self.followees.get(followerId,set()).add(followeeId)
+        else:
+            self.followees[followerId] = set()
+            self.followees[followerId].add(followeeId)
+    def unfollow(self, followerId: int, followeeId: int) -> None:
+        if self.followees.get(followerId,set()):
+            self.followees.get(followerId,set()).remove(followeeId)
+        else:
+            return
+
 
 class Heap:
     # The structure -> binary tree, completely filled with nodes left to right
