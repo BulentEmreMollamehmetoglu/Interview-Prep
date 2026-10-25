@@ -2805,7 +2805,7 @@ class Twitter:
 
         return res
 
-    def postTweet(self, userId: int, tweetId: int) -> None:
+    def postTweet(self, userId: int, tweetId: int) -> None: # O(log n) where n is the number of tweets belonged to user
         if userId in self.hashMap.keys():
             userHeap = self.hashMap[userId]
         else:
@@ -2815,7 +2815,7 @@ class Twitter:
         self.tweetOrder += 1
         # append to the max heap
 
-    def getNewsFeed(self, userId: int) -> List[int]:
+    def getNewsFeed(self, userId: int) -> List[int]: # O(T logT) # total tweets from user and everyone that user follows 
         numOfTweets = 10
         res = []
         tempHeap = [()]
@@ -2891,14 +2891,14 @@ class TwitterOptimized:
 
         return res
 
-    def postTweet(self, userId: int, tweetId: int) -> None:
+    def postTweet(self, userId: int, tweetId: int) -> None: # O(n)
         if userId not in self.hashMap:
             self.hashMap[userId] = []
         
         self.hashMap[userId].append((self.tweetOrder,tweetId))
         self.tweetOrder += 1
 
-    def getNewsFeed(self, userId: int) -> List[int]:
+    def getNewsFeed(self, userId: int) -> List[int]: # O(F log F + K log F) number of users contributing tweets
         # {1 : [(1,100),(2,101)], 2 : [(3,102),(4,103)]}
         res = [] 
         tempHeap = [()] # dummy
