@@ -3000,6 +3000,28 @@ class Median:
 
         return (self.large[0] + -1 * self.small[0]) / 2
     
+
+class IPO:
+
+    def __init__(self):
+        self.minHeap, self.maxHeap = [], [] 
+
+    def findMaximizedCapital(self, k: int, w: int, profits: List[int], capital: List[int]) -> int:
+        for c,p in zip(capital,profits):
+            heapq.heappush(self.minHeap,(c,p))
+        # minHeap = [(0, 1), (1, 3), (1, 2), (3, 4)]
+
+        for _ in range(k):
+            while self.minHeap and self.minHeap[0][0] <= w:
+                capital, profit = heapq.heappop(self.minHeap)
+                heapq.heappush(self.maxHeap, -profit)
+            
+            if not self.maxHeap:
+                break
+
+            w += -heapq.heappop(self.maxHeap)
+
+        return w
 class Heap:
     # The structure -> binary tree, completely filled with nodes left to right
     # The order -> min heap -> the smallest root, max heap -> the larget root
