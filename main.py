@@ -3022,6 +3022,9 @@ class IPO:
             w += -heapq.heappop(self.maxHeap)
 
         return w
+
+
+
 class Heap:
     # The structure -> binary tree, completely filled with nodes left to right
     # The order -> min heap -> the smallest root, max heap -> the larget root
@@ -4004,6 +4007,19 @@ class BSTIterator:
 # param_1 = obj.next()
 # param_2 = obj.hasNext()
 
+
+
+    def maxSubArray(self, nums: List[int]) -> int:
+        # kadane's algorithm
+        maxSum = float('-inf')
+        curSum = 0
+
+        for n in nums:
+            curSum = max(curSum,0) # negative check
+            curSum += n
+            maxSum = max(curSum,maxSum)
+        
+        return maxSum
 def main():  
 
     solution_Ex = Solution()
