@@ -4020,6 +4020,41 @@ class BSTIterator:
             maxSum = max(curSum,maxSum)
         
         return maxSum
+
+
+
+    def kadanesMaxSum(self,nums : list[int]) -> int:
+        maxSum = float('-inf')
+        curSum = 0
+
+        for n in nums:
+            curSum = max(curSum,0)
+            curSum += n
+            maxSum = max(maxSum,curSum)
+
+        return maxSum
+
+    def kadanesMinSum(self, nums: list[int]) -> int:
+        minSum = float('inf')
+        curSum = 0
+
+        for n in nums:
+            curSum = min(curSum, 0)
+            curSum += n
+            minSum = min(minSum,curSum)
+
+        return minSum
+
+    def maxSubarraySumCircular(self, nums: List[int]) -> int:
+        maxSum = self.kadanesMaxSum(nums)
+        minSum = self.kadanesMinSum(nums)
+        totalSum = sum(nums)
+
+        if maxSum < 0 :
+            return maxSum
+
+        return max(maxSum,totalSum - minSum)
+
 def main():  
 
     solution_Ex = Solution()
