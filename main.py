@@ -4071,7 +4071,7 @@ class BSTIterator:
     # Time And Space : O(n) and O(1)
 
 
-    def canJump(self, nums: List[int]) -> bool:
+    def canJump2(self, nums: List[int]) -> bool:
         memo = {}
         def dfs(indx):
             
@@ -4091,6 +4091,14 @@ class BSTIterator:
 
         return dfs(0)
     
+    def canJump3(self, nums: List[int]) -> bool:
+        goal = len(nums) - 1
+
+        for i in range(len(nums) -2, -1 ,-1):
+            if i + nums[i] >= goal:
+                goal = i
+        
+        return True if goal == 0 else False
 def main():  
 
     solution_Ex = Solution()
