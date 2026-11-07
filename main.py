@@ -4069,6 +4069,28 @@ class BSTIterator:
         return False
 
     # Time And Space : O(n) and O(1)
+
+
+    def canJump(self, nums: List[int]) -> bool:
+        memo = {}
+        def dfs(indx):
+            
+            if indx >= len(nums) - 1:
+                return True
+
+            if indx in memo:
+                return memo[indx]
+
+            for jump in range(1,nums[indx] + 1):
+                if dfs(indx + jump):
+                    memo[indx] = True
+                    return True
+
+            memo[indx] = False
+            return False
+
+        return dfs(0)
+    
 def main():  
 
     solution_Ex = Solution()
