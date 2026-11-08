@@ -4099,6 +4099,22 @@ class BSTIterator:
                 goal = i
         
         return True if goal == 0 else False
+
+    def jump(self, nums: List[int]) -> int:
+        farthest = 0
+        currentEnd = 0
+        jumps = 0
+
+        for i in range(len(nums) -1):
+            farthest = max(farthest, i + nums[i])
+
+            if i == currentEnd:
+                jumps += 1
+                currentEnd = farthest
+                if farthest >= len(nums) - 1:
+                    return jumps
+
+        return jumps
 def main():  
 
     solution_Ex = Solution()
