@@ -4099,7 +4099,7 @@ class BSTIterator:
                 goal = i
         
         return True if goal == 0 else False
-
+        # o(n) time O(1) space
     def jump(self, nums: List[int]) -> int:
         farthest = 0
         currentEnd = 0
