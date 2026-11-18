@@ -4100,6 +4100,7 @@ class BSTIterator:
         
         return True if goal == 0 else False
         # o(n) time O(1) space
+        
     def jump(self, nums: List[int]) -> int:
         farthest = 0
         currentEnd = 0
@@ -4115,6 +4116,19 @@ class BSTIterator:
                     return jumps
 
         return jumps
+
+
+    def canCompleteCircuit(self, gas: List[int], cost: List[int]) -> int:      
+        tank,totalGas,start = 0,0,0
+        for i in range(len(gas)):
+            diff = gas[i] - cost[i]
+            tank += diff
+            totalGas += diff
+            if tank < 0:
+                start = i + 1
+                tank = 0
+
+        return start if totalGas >= 0 else -1
 def main():  
 
     solution_Ex = Solution()
