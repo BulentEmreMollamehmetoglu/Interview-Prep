@@ -4129,6 +4129,20 @@ class BSTIterator:
                 tank = 0
 
         return start if totalGas >= 0 else -1
+
+    def canCompleteCircuit2(self, gas: List[int], cost: List[int]) -> int:     
+        tank,start = 0,0
+        for i in range(len(cost)):
+            diff = gas[i] - cost[i]
+            tank += diff
+
+            if tank < 0:
+                tank = 0
+                start = i + 1
+
+        return start if sum(gas) >= sum(cost) else -1
+
+        # space: O(n) memory: O(1) greedy
 def main():  
 
     solution_Ex = Solution()
