@@ -4143,6 +4143,27 @@ class BSTIterator:
         return start if sum(gas) >= sum(cost) else -1
 
         # space: O(n) memory: O(1) greedy
+
+
+
+    from collections import Counter
+
+
+    def isNStraightHand(self, hand: List[int], groupSize: int) -> bool:
+
+        hashMap = dict(Counter(hand))
+        while hashMap:
+            minKey = min(hashMap.keys())
+            for i in range(minKey, minKey + groupSize):
+                if hashMap.get(i,0) == 0:
+                    return False
+                else:
+                    hashMap[i] = hashMap.get(i,0) - 1
+
+                if hashMap[i] == 0:
+                    del hashMap[i]
+
+        return True
 def main():  
 
     solution_Ex = Solution()
