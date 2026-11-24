@@ -4164,6 +4164,33 @@ class BSTIterator:
                     del hashMap[i]
 
         return True
+
+
+    def isNStraightHand(self, hand: List[int], groupSize: int) -> bool:
+
+        if len(hand) % groupSize:
+            return False
+
+        hashMap = {}
+        for n in hand:
+            hashMap[n] = hashMap.get(n,0) + 1
+
+        minHeap = list(hashMap.keys()) # O(n)
+        heapq.heapify(minHeap)
+
+        while minHeap:
+            minKey = minHeap[0] # don't need to pop at all
+            for i in range(minKey,minKey + groupSize):
+                if i not in hashMap:
+                    return False  
+                hashMap[i] -= 1    
+                if hashMap.get(i,0) == 0:
+                    if i != minHeap[0]:
+                        return False
+                    heapq.heappop(minHeap)
+                    del hashMap[i]
+        return True
+        # O(n * logn)
 def main():  
 
     solution_Ex = Solution()
